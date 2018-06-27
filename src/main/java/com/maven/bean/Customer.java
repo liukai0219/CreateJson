@@ -25,9 +25,7 @@ public class Customer implements Serializable{
 	private String phone;
 	private String address;
 	private String about;
-	private List<String> tags;
 	private String favoriteFruit;
-	private List<Friend> friends;
 	public String getId() {
 		return id;
 	}
@@ -118,30 +116,18 @@ public class Customer implements Serializable{
 	public void setAbout(String about) {
 		this.about = about;
 	}
-	public List<String> getTags() {
-		return tags;
-	}
-	public void setTags(List<String> tags) {
-		this.tags = tags;
-	}
 	public String getFavoriteFruit() {
 		return favoriteFruit;
 	}
 	public void setFavoriteFruit(String favoriteFruit) {
 		this.favoriteFruit = favoriteFruit;
 	}
-	public List<Friend> getFriends() {
-		return friends;
-	}
-	public void setFriends(List<Friend> friends) {
-		this.friends = friends;
-	}
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", index=" + index + ", guid=" + guid + ", active=" + active + ", balance="
 				+ balance + ", picture=" + picture + ", age=" + age + ", eyecolor=" + eyecolor + ", lastName="
 				+ lastName + ", firstName=" + firstName + ", company=" + company + ", email=" + email + ", phone="
-				+ phone + ", address=" + address + ", about=" + about + ", tags=" + tags + ", favoriteFruit="
-				+ favoriteFruit + ", friends=" + friends + "]";
+				+ phone + ", address=" + address + ", about=" + about + ", favoriteFruit=" + favoriteFruit + "]";
 	}
+	
 }

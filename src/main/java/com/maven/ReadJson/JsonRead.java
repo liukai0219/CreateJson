@@ -3,10 +3,7 @@ package com.maven.ReadJson;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -30,12 +27,13 @@ public class JsonRead {
 		CustomerDAO cust = new CustomerDAOImpl();
 		
 		customer.forEach($->{
-			try {
-				cust.addCustomer($);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+
+				//cust.updateCustomer($);
+			
 		});
+		
+		cust.findCustomer(null);
+		
 	}
 
 }

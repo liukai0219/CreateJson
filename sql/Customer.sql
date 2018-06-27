@@ -1,0 +1,22 @@
+create table Customer(
+id varchar(24) primary key,
+_index int not null,
+guid varchar(36) not null,
+active tinyint default 0,
+balance varchar(16),
+picture varchar(128),
+age int,
+eyecolor varchar(8),
+lastName varchar(32) not null,
+firstName varchar(32) not null,
+company  varchar(64),
+email  varchar(64) not null,
+phone  varchar(16),
+address  varchar(128),
+about varchar(1024),
+favoriteFruit varchar(16),
+created datetime,
+createdBy varchar(32),
+updated datetime,
+updatedBy varchar(32)
+)default character set utf8;

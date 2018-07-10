@@ -1,6 +1,9 @@
 package com.maven.utils;
 
 public class Utils {
+	/**
+	 * 输出欢迎界面
+	 */
 	public static void printMenuInfo() {
 		printMsg("*************************************");
 		printMsg("*           欢迎使用本系统                      *");
@@ -11,6 +14,10 @@ public class Utils {
 		printMsg("* 4.退出                                                        *");
 		printMsg("*************************************");
 	}
+	
+	/**
+	 * 导入JSON文件 时的提示
+	 */
 	public static void printInputJsonInfo() {
 		printMsg("请输入要读取的JSON文件地址");
 		printMsg("输入例如下：");

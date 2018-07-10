@@ -13,6 +13,11 @@ import com.maven.DBUtils.DBUtils;
 import com.maven.bean.Customer;
 
 public class CustomerDAOImpl implements CustomerDAO {
+	/**
+	 * 查询顾客表
+	 * @param id 顾客ID 当id为null时返回所有顾客
+	 * @return list 顾客列表
+	 */
 	@Override
 	public List<Customer> findCustomer(String id) {
 		Connection conn = null;
@@ -65,6 +70,11 @@ public class CustomerDAOImpl implements CustomerDAO {
 		}
 		return list;
 	}
+	/**
+	 * 更新顾客信息
+	 * @param cus 顾客实例
+	 * @return 1 ：成功 其他：失败
+	 */
 	@Override
 	public int updateCustomer(Customer cus) {
 		Connection conn = null;
@@ -109,6 +119,11 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return result;
 	}
 
+	/**
+	 * 插入顾客信息
+	 * @param cus 顾客实例
+	 * @return 1 ：成功 其他：失败
+	 */
 	@Override
 	public int addCustomer(Customer cus) {
 		Connection conn = null;
@@ -178,7 +193,12 @@ public class CustomerDAOImpl implements CustomerDAO {
 		}
 		return result;
 	}
-
+	
+	/**
+	 * 删除顾客信息
+	 * @param id 顾客ID  为null时删除所有
+	 * @return 1 ：成功 其他：失败
+	 */
 	@Override
 	public int deleteCustomer(String id) {
 		Connection conn = null;

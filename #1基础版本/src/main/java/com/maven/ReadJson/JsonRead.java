@@ -18,29 +18,39 @@ import com.maven.utils.Utils;
 public class JsonRead {
 	
 	public static void main(String[] args) throws IOException {
+		int menu;  //保存菜单序号
 		
-		int menu;
-		boolean isExit = false;
-		
-		while (!isExit) {
+		while (true) {
+			//输出菜单那界面
 			Utils.printMenuInfo();
+			//读取一个序号
 			menu = readMenuNum();
 			switch (menu) {
 				case 1:
+					//导入JSON文件功能
 					readJsonFile();
 					break;
 				case 2:
+					//清空数据库功能
 					deleteDB();
 					break;
 				case 3:
+					//查看所有数据功能
 					findAllCustomer();
 					break;
 				case 4:
+					//退出
 					exitApplication();
 					break;
 			}
 		}
 	}
+	/**
+	 * 让操作者输入一个数字，
+	 * 非数字则输出警告信息：禁止输入数以外的字符！，
+	 * 并让重新输入
+	 * @return Integer.parseInt(menu) 端末输入的序号
+	 */
 	private static int readMenuNum() {
 		Scanner scan = new Scanner(System.in);
 		String menu = "";
@@ -58,6 +68,13 @@ public class JsonRead {
 		} while (isNotNumber); 
 		return Integer.parseInt(menu);
 	}
+	/**
+	 * 读取JSON文件内容并按Operate操作
+	 * Operate：add 添加顾客信息
+	 * Operate：del 删除顾客信息
+	 * Operate：upd 更新顾客信息
+	 * @throws IOException
+	 */
 	private static void readJsonFile()  throws IOException{
 		Scanner scan = new Scanner(System.in);
 		String path = "";
@@ -109,12 +126,21 @@ public class JsonRead {
 		});
 
 	}
+	/**
+	 * 查看顾客是否存在
+	 * @param id 顾客ID
+	 * @return true：存在    false：不存在
+	 */
 	private static boolean isCustomerExist(String id) {
 		CustomerDAO custdao = new CustomerDAOImpl();
 		List<Customer> result = custdao.findCustomer(id);
 		Utils.printMsg("sise:"+String.valueOf(result.size()));
 		return result.size() > 0 ? true : false;
 	}
+	/**
+	 * 删除顾客信息
+	 * 成功则输出：数据库中数据已全部删除！
+	 */
 	private static void deleteDB() {
 		CustomerDAO custdao = new CustomerDAOImpl();
 		
@@ -135,6 +161,9 @@ public class JsonRead {
 		}
 		
 	}
+	/**
+	 * 查询并输出所有顾客信息
+	 */
 	private static void findAllCustomer() {
 		CustomerDAO custdao = new CustomerDAOImpl();
 		List<Customer> result = custdao.findCustomer(null);
@@ -143,6 +172,9 @@ public class JsonRead {
 		});
 		Utils.printMsg("总共" + result.size() + "条数据");
 	}
+	/**
+	 * 退出
+	 */
 	private static void exitApplication() {
 		System.exit(0);
 	}

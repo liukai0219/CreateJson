@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Customer implements Serializable{
 	private static final long serialVersionUID = 1L;
+	private String operate;
 	@SerializedName("_id")
 	private String id;
 	private String index;
@@ -26,6 +27,12 @@ public class Customer implements Serializable{
 	private String address;
 	private String about;
 	private String favoriteFruit;
+	public String getOperate() {
+		return operate;
+	}
+	public void setOperate(String operate) {
+		this.operate = operate;
+	}
 	public String getId() {
 		return id;
 	}
@@ -124,10 +131,10 @@ public class Customer implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", index=" + index + ", guid=" + guid + ", active=" + active + ", balance="
-				+ balance + ", picture=" + picture + ", age=" + age + ", eyecolor=" + eyecolor + ", lastName="
-				+ lastName + ", firstName=" + firstName + ", company=" + company + ", email=" + email + ", phone="
-				+ phone + ", address=" + address + ", about=" + about + ", favoriteFruit=" + favoriteFruit + "]";
+		return "Customer [operate=" + operate + ", id=" + id + ", index=" + index + ", guid=" + guid + ", active="
+				+ active + ", balance=" + balance + ", picture=" + picture + ", age=" + age + ", eyecolor=" + eyecolor
+				+ ", lastName=" + lastName + ", firstName=" + firstName + ", company=" + company + ", email=" + email
+				+ ", phone=" + phone + ", address=" + address + ", about=" + about + ", favoriteFruit=" + favoriteFruit
+				+ "]";
 	}
-	
 }

@@ -66,10 +66,10 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return list;
 	}
 	@Override
-	public boolean updateCustomer(Customer cus) {
+	public int updateCustomer(Customer cus) {
 		Connection conn = null;
 		Statement stmt = null;
-		boolean result = false;
+		int result = -1;
 		
 		try {
 			conn = DBUtils.getConnection();
@@ -95,7 +95,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 					+"`updated`='"+datetime+"'"
 					+"WHERE "
 					+"id='"+cus.getId()+"';";
-			result = stmt.execute(sql);
+			result = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -110,10 +110,10 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	@Override
-	public boolean addCustomer(Customer cus) {
+	public int addCustomer(Customer cus) {
 		Connection conn = null;
 		Statement stmt = null;
-		boolean result = false;
+		int result = -1;
 		try {
 			conn = DBUtils.getConnection();
 			stmt = conn.createStatement();
@@ -166,7 +166,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 					+ "'root'"
 					+ ");";
 			
-			result = stmt.execute(sql);
+			result = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -180,10 +180,10 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	@Override
-	public boolean deleteCustomer(String id) {
+	public int deleteCustomer(String id) {
 		Connection conn = null;
 		Statement stmt = null;
-		boolean result = false;
+		int result = -1;
 		String sql = "";
 		try {
 			conn = DBUtils.getConnection();
@@ -194,7 +194,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 				sql = "DELETE FROM customer;";	
 			}
 			
-			result = stmt.execute(sql);
+			result = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

@@ -11,7 +11,8 @@ public class Utils {
 		printMsg("* 1.导入JSON文件                                         *");
 		printMsg("* 2.清空数据库                                             *");
 		printMsg("* 3.查看所有数据                                         *");
-		printMsg("* 4.退出                                                        *");
+		printMsg("* 4.查询年龄小于30活跃的顾客                  *");
+		printMsg("* 5.退出                                                        *");
 		printMsg("*************************************");
 	}
 	

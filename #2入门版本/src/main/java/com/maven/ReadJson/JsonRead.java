@@ -2,9 +2,11 @@ package com.maven.ReadJson;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
@@ -40,6 +42,10 @@ public class JsonRead {
 					findAllCustomer();
 					break;
 				case 4:
+					//查询年龄小于30活跃的顾客
+					findCustomerByAgeAndActive();
+					break;
+				case 5:
 					//退出
 					exitApplication();
 					break;
@@ -168,6 +174,20 @@ public class JsonRead {
 	private static void findAllCustomer() {
 		CustomerDAO custdao = new CustomerDAOImpl();
 		List<Customer> result = custdao.findCustomer(null);
+		result.forEach($->{
+			Utils.printMsg($.toString());
+		});
+		Utils.printMsg("总共" + result.size() + "条数据");
+	}
+	/**
+	 * 查询年龄小于30活跃的顾客
+	 */
+	private static void findCustomerByAgeAndActive() {
+		CustomerDAO custdao = new CustomerDAOImpl();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("age", 30);
+		map.put("active", 1);
+		List<Customer> result = custdao.findCustomerByAgeAndActive(map);
 		result.forEach($->{
 			Utils.printMsg($.toString());
 		});

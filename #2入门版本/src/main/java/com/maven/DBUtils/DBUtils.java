@@ -18,6 +18,7 @@ public class DBUtils {
 						String resource = "resources/MybatisConfiguration.xml";
 						InputStream inputStream = Resources.getResourceAsStream(resource);
 						sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+						inputStream.close();
 					} catch (IOException e) {
 						e.printStackTrace();
 					} 

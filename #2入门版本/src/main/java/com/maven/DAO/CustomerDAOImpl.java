@@ -49,13 +49,56 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return list;
 	}
 	
+	/**
+	 * 查询顾客表
+	 * @param map 查询条件
+	 * @return result 顾客列表
+	 */
 	@Override
-	public List<Customer> findCustomerByAny(List<String> list) {
+	public List<Customer> findCustomerByAny(Map<String,Object> map) {
 		List<Customer> result = new ArrayList<Customer>();
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			list = session.selectList("com.maven.bean.Customer.selectCustomerByAny", list);
+			result = session.selectList("com.maven.bean.Customer.selectCustomerByAny", map);
+			session.commit();
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+	
+	/**
+	 * 查询顾客表
+	 * @param list 查询条件
+	 * @return result 顾客列表
+	 */
+	@Override
+	public List<Customer> findCustomerByName(List<String> list) {
+		List<Customer> result = new ArrayList<Customer>();
+		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			result = session.selectList("com.maven.bean.Customer.selectCustomerByName", list);
+			session.commit();
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+	
+	/**
+	 * 查询顾客表
+	 * @param list 查询条件
+	 * @return result 顾客列表
+	 */
+	@Override
+	public List<Customer> findCustomerByName(String[] params) {
+		List<Customer> result = new ArrayList<Customer>();
+		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			result = session.selectList("com.maven.bean.Customer.selectCustomerByName_Array", params);
 			session.commit();
 		} finally {
 			session.close();

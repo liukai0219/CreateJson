@@ -38,6 +38,44 @@
 		</where>
 	</select>
 	
+	<!-- 利用map传入参数 -->
+	<select id="selectCustomerByAny" resultMap="selectCustomerResultMap" parameterType="java.util.Map">
+		SELECT * FROM Customer
+		<where>
+			<!-- _parameter.entrySet()或者map.entrySet()  index：key  item：value -->
+			<!-- _parameter.values()或者map.values()  index：0,1... item：value -->
+			<!-- _parameter.keySet()或者map.keySet()  index：0,1... item：key -->
+			<foreach collection="_parameter.entrySet()" index="index" item="item">
+				<if test="item != null">
+					${item} 
+				</if>
+			</foreach>
+		</where>
+	</select>
+	
+	<!-- 利用list传入参数 foreach循环 -->
+	<select id="selectCustomerByName" resultMap="selectCustomerResultMap" parameterType="java.util.List">
+		SELECT * FROM Customer
+		WHERE lastName IN 
+		<foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+			<if test="item != null" >
+				'${item}' 
+			</if>
+		</foreach>
+	</select>
+	
+	<!-- 利用array传入参数 foreach循环 -->
+	<select id="selectCustomerByName_Array" resultMap="selectCustomerResultMap">
+		SELECT * FROM Customer
+		WHERE lastName IN 
+		<foreach collection="array" index="index" item="item" open="(" close=")" separator=",">
+			<if test="item != null" >
+				<!-- #{item} '${item}' -->
+				#{item}
+			</if>
+		</foreach>
+	</select>
+	
 	<update id="updateCustomer" parameterType="Customer">
 		UPDATE Customer
 		<!-- set标签会动态前置 SET 关键字，同时也会删掉无关的逗号 -->

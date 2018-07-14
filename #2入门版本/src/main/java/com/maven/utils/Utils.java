@@ -12,7 +12,9 @@ public class Utils {
 		printMsg("* 2.清空数据库                                             *");
 		printMsg("* 3.查看所有数据                                         *");
 		printMsg("* 4.查询年龄小于30活跃的顾客                  *");
-		printMsg("* 5.退出                                                        *");
+		printMsg("* 5.自定义条件查询顾客                             *");
+		printMsg("* 6.通过名字查询顾客                                 *");
+		printMsg("* 7.退出                                                        *");
 		printMsg("*************************************");
 	}
 	

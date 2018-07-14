@@ -46,6 +46,15 @@ public class JsonRead {
 					findCustomerByAgeAndActive();
 					break;
 				case 5:
+					//自定义条件查询顾客
+					findCustomerByAny();
+					break;
+				case 6:
+					//通过名字查询顾客 
+					findCustomerByName_List();
+					findCustomerByName_Array();
+					break;
+				case 7:
 					//退出
 					exitApplication();
 					break;
@@ -193,6 +202,48 @@ public class JsonRead {
 		});
 		Utils.printMsg("总共" + result.size() + "条数据");
 	}
+	/**
+	 * 自定义条件查询顾客
+	 */
+	private static void findCustomerByAny() {
+		CustomerDAO custdao = new CustomerDAOImpl();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("conditon1", "and age < 30");
+		map.put("conditon2", "and active = 1");
+		List<Customer> result = custdao.findCustomerByAny(map);
+		result.forEach($->{
+			Utils.printMsg($.toString());
+		});
+		Utils.printMsg("总共" + result.size() + "条数据");
+	}
+	private static void findCustomerByName_List() {
+		CustomerDAO custdao = new CustomerDAOImpl();
+		List<String> paramlist = new ArrayList<String>();
+		//不要忘了单引号"'",以下两种形式
+		//paramlist.add("'Carr'"); 
+		//'${item}'
+		paramlist.add("Carr");
+		paramlist.add("Skinner");
+		paramlist.add("Barker");
+		List<Customer> result = custdao.findCustomerByName(paramlist);
+		Utils.printMsg("通过List传递参数");
+		result.forEach($->{
+			Utils.printMsg($.toString());
+		});
+		Utils.printMsg("总共" + result.size() + "条数据");
+	}
+	
+	private static void findCustomerByName_Array() {
+		CustomerDAO custdao = new CustomerDAOImpl();
+		String[] paramArray = {"Carr","Skinner","Barker"};
+		List<Customer> result = custdao.findCustomerByName(paramArray);
+		Utils.printMsg("通过Array传递参数");
+		result.forEach($->{
+			Utils.printMsg($.toString());
+		});
+		Utils.printMsg("总共" + result.size() + "条数据");
+	}
+	
 	/**
 	 * 退出
 	 */

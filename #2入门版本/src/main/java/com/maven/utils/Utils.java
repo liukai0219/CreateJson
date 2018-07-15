@@ -14,7 +14,8 @@ public class Utils {
 		printMsg("* 4.查询年龄小于30活跃的顾客                  *");
 		printMsg("* 5.自定义条件查询顾客                             *");
 		printMsg("* 6.通过名字查询顾客                                 *");
-		printMsg("* 7.退出                                                        *");
+		printMsg("* 7.名字含n的顾客                                      *");
+		printMsg("* 8.退出                                                        *");
 		printMsg("*************************************");
 	}
 	

@@ -18,7 +18,7 @@
 		<!-- where可以用trim代替 -->
 		<where>
 			<!-- 在if标签对参数进行判断,可以使用_parameter,但仅限单个参数的情况 -->
-			<if test="_parameter != null">
+			<if test="_parameter != null"> 
 				id=#{id}
 			</if>
 		</where>
@@ -26,16 +26,17 @@
 	
 	<!-- 利用map传入参数 -->
 	<select id="selectCustomerByAgeAndActive" resultMap="selectCustomerResultMap" parameterType="java.util.Map">
-		SELECT * FROM Customer
-		<where>
-			<if test="age != null">
-				<!-- 因为<是特殊字符，所以用 <![CDATA[....]]> 框起来，让解析器忽略-->
-				age <![CDATA[<]]> #{age}
-			</if>
-			<if test="active != null">
+		SELECT * FROM Customer 
+		<!-- 因为<是特殊字符，所以用 <![CDATA[....]]> 框起来，让解析器忽略-->
+		WHERE age <![CDATA[<]]> #{age}
+		<choose>
+			<when test="active != null">
 				AND active = #{active}
-			</if>
-		</where>
+			</when>
+			<otherwise>
+				AND balance is not null
+			</otherwise>
+		</choose>
 	</select>
 	
 	<!-- 利用map传入参数 -->
@@ -74,6 +75,13 @@
 				#{item}
 			</if>
 		</foreach>
+	</select>
+	
+	<select id="selectCustomerByName_Like" resultMap="selectCustomerResultMap">
+		<!-- 通过bind元素创建一个变量 -->
+		<bind name="p" value="'%' + _parameter + '%'"/>
+		SELECT * FROM Customer
+		WHERE lastName LIKE #{p}
 	</select>
 	
 	<update id="updateCustomer" parameterType="Customer">

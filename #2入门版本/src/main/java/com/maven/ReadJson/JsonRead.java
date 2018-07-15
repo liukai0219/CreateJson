@@ -55,6 +55,10 @@ public class JsonRead {
 					findCustomerByName_Array();
 					break;
 				case 7:
+					//名字含n的顾客
+					findCustomerByNameLike();
+					break;
+				case 8:
 					//退出
 					exitApplication();
 					break;
@@ -93,13 +97,13 @@ public class JsonRead {
 	 */
 	private static void readJsonFile()  throws IOException{
 		Scanner scan = new Scanner(System.in);
-		String path = "";
-		File file = null;
-		do {
+		String path = "./src/main/java/com/maven/ReadJson/customers.json";
+		File file = new File(path);
+		/*do {
 			Utils.printInputJsonInfo();
 			path = scan.nextLine();
 			file = new File(path);
-		} while(!(file.exists()&&file.isFile()));
+		} while(!(file.exists()&&file.isFile()));*/
 		
 		String content = FileUtils.readFileToString(file,"UTF-8");
 		
@@ -121,22 +125,22 @@ public class JsonRead {
 				}
 			break;
 			case "del":
-				if (isCustomerExist($.getId())) {
+				/*if (isCustomerExist($.getId())) {
 					if (custdao.deleteCustomer($.getId()) == 1) {
 						Utils.printMsg("ID为" + $.getId() + "的顾客删除成功！");
 					}
 				} else {
 					Utils.printMsg("顾客删除失败！原因：ID为" + $.getId() + "的顾客不存在！");
-				}
+				}*/
 				break;
 			case "upd":
-				if (isCustomerExist($.getId())) {
+				/*if (isCustomerExist($.getId())) {
 					if (custdao.updateCustomer($) == 1) {
 						Utils.printMsg("ID为" + $.getId() + "的顾客更新成功！");
 					}
 				} else {
 					Utils.printMsg("顾客更新失败！原因：ID为" + $.getId() + "的顾客不存在！");
-				}
+				}*/
 				break;
 			}
 		});
@@ -244,6 +248,15 @@ public class JsonRead {
 		Utils.printMsg("总共" + result.size() + "条数据");
 	}
 	
+	private static void findCustomerByNameLike() {
+		CustomerDAO custdao = new CustomerDAOImpl();
+		String param = "n";
+		List<Customer> result = custdao.findCustomerByName(param);
+		result.forEach($->{
+			Utils.printMsg($.toString());
+		});
+		Utils.printMsg("总共" + result.size() + "条数据");
+	}
 	/**
 	 * 退出
 	 */

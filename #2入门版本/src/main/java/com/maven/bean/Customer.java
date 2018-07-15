@@ -1,7 +1,8 @@
 package com.maven.bean;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Date;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -14,7 +15,7 @@ public class Customer implements Serializable{
 	private String guid;
 	@SerializedName("isActive")
 	private boolean active;
-	private String balance;
+	private Acount acount;
 	private String picture;
 	private int age;
 	@SerializedName("eyeColor")
@@ -26,7 +27,12 @@ public class Customer implements Serializable{
 	private String phone;
 	private String address;
 	private String about;
+	private Tags[] tags;
 	private String favoriteFruit;
+	private Date created;
+	private String createdby;
+	private Date update;
+	private String updateby;
 	public String getOperate() {
 		return operate;
 	}
@@ -63,11 +69,41 @@ public class Customer implements Serializable{
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	public String getBalance() {
-		return balance;
+	public Tags[] getTags() {
+		return tags;
 	}
-	public void setBalance(String balance) {
-		this.balance = balance;
+	public void setTags(Tags[] tags) {
+		this.tags = tags;
+	}
+	public Acount getAccout() {
+		return acount;
+	}
+	public void setAccout(Acount acount) {
+		this.acount = acount;
+	}
+	public Date getCreated() {
+		return created;
+	}
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+	public String getCreatedby() {
+		return createdby;
+	}
+	public void setCreatedby(String createdby) {
+		this.createdby = createdby;
+	}
+	public Date getUpdate() {
+		return update;
+	}
+	public void setUpdate(Date update) {
+		this.update = update;
+	}
+	public String getUpdateby() {
+		return updateby;
+	}
+	public void setUpdateby(String updateby) {
+		this.updateby = updateby;
 	}
 	public String getPicture() {
 		return picture;
@@ -132,9 +168,11 @@ public class Customer implements Serializable{
 	@Override
 	public String toString() {
 		return "Customer [operate=" + operate + ", id=" + id + ", index=" + index + ", guid=" + guid + ", active="
-				+ active + ", balance=" + balance + ", picture=" + picture + ", age=" + age + ", eyecolor=" + eyecolor
+				+ active + ", acount=" + acount.toString() + ", picture=" + picture + ", age=" + age + ", eyecolor=" + eyecolor
 				+ ", lastName=" + lastName + ", firstName=" + firstName + ", company=" + company + ", email=" + email
-				+ ", phone=" + phone + ", address=" + address + ", about=" + about + ", favoriteFruit=" + favoriteFruit
-				+ "]";
+				+ ", phone=" + phone + ", address=" + address + ",  tags=" + Arrays.toString(tags)
+				+ ", favoriteFruit=" + favoriteFruit + ", created=" + created + ", createdby=" + createdby + ", update="
+				+ update + ", updateby=" + updateby + "]";
 	}
+	
 }

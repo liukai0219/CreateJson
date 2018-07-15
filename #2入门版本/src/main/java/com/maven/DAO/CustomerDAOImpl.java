@@ -106,6 +106,21 @@ public class CustomerDAOImpl implements CustomerDAO {
 		return result;
 	}
 	
+
+	@Override
+	public List<Customer> findCustomerByName(String param) {
+		List<Customer> result = new ArrayList<Customer>();
+		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			result = session.selectList("com.maven.bean.Customer.selectCustomerByName_Like", param);
+			session.commit();
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+	
 	/**
 	 * 更新顾客信息
 	 * @param cus 顾客实例

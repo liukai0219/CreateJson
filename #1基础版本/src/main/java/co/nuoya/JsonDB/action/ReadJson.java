@@ -1,20 +1,15 @@
 package co.nuoya.JsonDB.action;
 
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
-
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import co.nuoya.JsonDB.model.Customer;
 import co.nuoya.JsonDB.service.CustomerService;
 import co.nuoya.JsonDB.service.CustomerServiceImpl;
+import co.nuoya.JsonDB.util.Utils;
 
 public class ReadJson {
 	
@@ -23,35 +18,27 @@ public class ReadJson {
 		 * DB操作结果
 		 */
 		List<String> result = new ArrayList<String>();
-		File file = new File(path);
-		String content = "";
-		try {
-			content = FileUtils.readFileToString(file,"UTF-8");
-			Gson gson = new Gson();
-			Type collectionType = new TypeToken<List<Customer>>(){}.getType();
-			List<Customer> customer = gson.fromJson(content, collectionType);
-			
-			CustomerService custService = new CustomerServiceImpl();
-			
-			customer.forEach($->{
-				
-				switch ($.getOperate()) {
-				case "add":
-					result.add(addCutomer(custService, $));
-				break;
-				case "del":
-					result.add(deleteCustomer(custService, $));
-					break;
-				case "upd":
-					result.add(updateCustomer(custService, $));
-					break;
-				}
-			});
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		/**
+		 * 从json文件中读取数据，生成list
+		 */
+		Type collectionType = new TypeToken<List<Customer>>(){}.getType();
+		List<Customer> customer = Utils.readJsonToList(path,collectionType);
 		
+		CustomerService custService = new CustomerServiceImpl();
+		customer.forEach($->{
+			
+			switch ($.getOperate()) {
+			case "add":
+				result.add(addCutomer(custService, $));
+			break;
+			case "del":
+				result.add(deleteCustomer(custService, $));
+				break;
+			case "upd":
+				result.add(updateCustomer(custService, $));
+				break;
+			}
+		});
 		return result;
 	}
 

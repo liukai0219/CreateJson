@@ -1,23 +1,21 @@
 -------------------------------------------------------------------------------
 Test set: co.nuoya.JsonDB.action.ReadJsonTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.051 sec <<< FAILURE!
-initializationError(co.nuoya.JsonDB.action.ReadJsonTest)  Time elapsed: 0.004 sec  <<< ERROR!
-java.lang.Exception: Method init() should be static
-	at org.junit.runners.model.FrameworkMethod.validatePublicVoid(FrameworkMethod.java:93)
-	at org.junit.runners.model.FrameworkMethod.validatePublicVoidNoArg(FrameworkMethod.java:74)
-	at org.junit.runners.ParentRunner.validatePublicVoidNoArgMethods(ParentRunner.java:155)
-	at org.junit.runners.ParentRunner.collectInitializationErrors(ParentRunner.java:125)
-	at org.junit.runners.BlockJUnit4ClassRunner.collectInitializationErrors(BlockJUnit4ClassRunner.java:124)
-	at org.junit.runners.ParentRunner.validate(ParentRunner.java:416)
-	at org.junit.runners.ParentRunner.<init>(ParentRunner.java:84)
-	at org.junit.runners.BlockJUnit4ClassRunner.<init>(BlockJUnit4ClassRunner.java:65)
-	at org.junit.internal.builders.JUnit4Builder.runnerForClass(JUnit4Builder.java:10)
-	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:59)
-	at org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:26)
-	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:59)
-	at org.junit.internal.requests.ClassRequest.getRunner(ClassRequest.java:33)
-	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:250)
+Tests run: 5, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.544 sec <<< FAILURE!
+warning(junit.framework.TestSuite$1)  Time elapsed: 0.005 sec  <<< FAILURE!
+junit.framework.AssertionFailedError: No tests found in co.nuoya.JsonDB.action.ReadJsonTest
+	at junit.framework.Assert.fail(Assert.java:57)
+	at junit.framework.TestCase.fail(TestCase.java:227)
+	at junit.framework.TestSuite$1.runTest(TestSuite.java:97)
+	at junit.framework.TestCase.runBare(TestCase.java:141)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:129)
+	at junit.framework.TestSuite.runTest(TestSuite.java:252)
+	at junit.framework.TestSuite.run(TestSuite.java:247)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:86)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
 	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)

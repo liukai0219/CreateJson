@@ -9,9 +9,6 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import co.nuoya.JsonDB.model.Customer;
 
 public class Utils {
 	/**
@@ -39,6 +36,10 @@ public class Utils {
 			e.printStackTrace();
 		}
 		return result;
-		
+	}
+	
+	public static <T> String writeListToJson(List<T> list) {
+		Gson gson = new Gson();
+		return gson.toJson(list);
 	}
 }

@@ -1,39 +1,32 @@
 package co.nuoya.JsonDB.action;
 
+import static org.junit.Assert.assertEquals;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
+import co.nuoya.JsonDB.DBUtil.DBUtils;
 import co.nuoya.JsonDB.model.Customer;
-import co.nuoya.JsonDB.util.Utils;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;;
+import co.nuoya.JsonDB.util.Utils;;
 
 
-public class ReadJsonTest extends TestCase{
+public class ReadJsonTest {
 	
-	public ReadJsonTest(String name) {
-		super(name);
+	@Before
+	public void setUp() throws SQLException {
+		Connection conn = DBUtils.getConnection();
+		Statement stat = conn.createStatement();
+		String sql = "DELETE FROM Customer";
+		stat.executeUpdate(sql);
+		sql = "INSERT INTO `customer`(`id`, `_index`, `guid`, `active`, `balance`, `picture`, `age`, `eyecolor`, `lastName`, `firstName`, `company`, `email`, `phone`, `address`, `about`, `favoriteFruit`, `created`, `createdBy`, `updated`, `updatedBy`) VALUES ('999999999999999','0','05f531f2-ab5a-470f-b77d-9be077909412',0,'$1,489.98','http://placehold.it/32x32',31,'blue','Chavez','Christi','ZEROLOGY','christi.chavez@zerology.ca','+1(928)536-3512','889 Stryker Court, Glenbrook, Michigan, 2079','Ex proident adipisicing sunt nostrud deserunt reprehenderit ut do. Ex enim laboris esse ullamco aliquip ullamco exercitation adipisicing tempor exercitation. Aliqua ex proident nostrud excepteur duis culpa. Anim ea fugiat tempor labore. Sunt nulla id aliqua quis id culpa. Sunt mollit elit excepteur enim pariatur aute. Aliquip eiusmod commodo id aliquip exercitation ut.','apple',sysdate(),'root',sysdate(),'root');";
+		stat.executeUpdate(sql);
 	}
 	
-	@BeforeClass
-	public static void init() {
-		Utils.printMsg("init");
-		ReadJson readJson = new ReadJson();
-		readJson.deleteDB();
-	}
-	
-	public static TestSuite suite() {
-		TestSuite suite = new TestSuite(ReadJsonTest.class); 
-		suite.addTest(new ReadJsonTest("init"));
-		suite.addTest(new ReadJsonTest("readJson"));
-		suite.addTest(new ReadJsonTest("findAllCustomer"));
-		suite.addTest(new ReadJsonTest("deleteDB"));
-		suite.addTest(TestSuite.createTest(WriteJsonTest.class, "init"));
-		suite.addTest(TestSuite.createTest(WriteJsonTest.class, "writeJson"));
-		return suite;
-	}
 	
 	@Test
 	public void readJson(){
@@ -69,13 +62,13 @@ public class ReadJsonTest extends TestCase{
 		ReadJson readJson = new ReadJson();
 		List<Customer> result = readJson.findAllCustomer();
 		
-		assertEquals(5,result.size());
+		assertEquals(1,result.size());
 	}
 	
 	@Test
 	public void deleteDB() {
 		Utils.printMsg("deleteDB");
 		ReadJson readJson = new ReadJson();
-		assertEquals(5,readJson.deleteDB());
+		assertEquals(1,readJson.deleteDB());
 	}
 }

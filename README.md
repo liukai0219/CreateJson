@@ -1,2 +1,9 @@
-# Json DB
-Read date from Json，then insert them to DB
+本项目基于maven
+由一系列的小项目构成
+
+①使用原始的方法、即不使用持久化框架
+读取json文件、并存入数据库
+读取数据库数据、生成json文件
+Maven+GSON+MySQL+Junit4+Log4j2
+
+②引入mybatis持久化框架

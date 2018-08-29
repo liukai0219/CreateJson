@@ -11,6 +11,7 @@ import java.util.List;
 
 import co.nuoya.JsonDB.DBUtil.DBUtils;
 import co.nuoya.JsonDB.model.Customer;
+import co.nuoya.JsonDB.util.Utils;
 
 public class CustomerDAOImpl implements CustomerDAO {
 	/**
@@ -20,6 +21,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 */
 	@Override
 	public List<Customer> findCustomer(String id) {
+		Utils.getFileLogger().debug("findCustomer start");
+		Utils.getsFileFormatterLogger().debug("paramter id : %s",id);
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -31,9 +34,11 @@ public class CustomerDAOImpl implements CustomerDAO {
 			conn = DBUtils.getConnection();
 			stmt = conn.createStatement();
 			if (id != null) {
-				sql = "SELECT * FROM Customer where id = '" + id + "';";	
+				sql = "SELECT * FROM Customer where id = '" + id + "';";
+				Utils.getsFileFormatterLogger().debug("SQL : %s", sql);
 			} else {
-				sql = "SELECT * FROM Customer;";	
+				sql = "SELECT * FROM Customer;";
+				Utils.getsFileFormatterLogger().debug("SQL : %s", sql);
 			}
 			
 			rs = stmt.executeQuery(sql);
@@ -60,7 +65,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 				list.add(customer);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Utils.getFileLogger().error(e.getMessage());
 		} finally {
 			try {
 				DBUtils.closeAll(conn, stmt, rs);
@@ -68,6 +73,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 				e.printStackTrace();
 			}
 		}
+		Utils.getFileLogger().debug("result : {} ", list.toString());
+		Utils.getFileLogger().debug("findCustomer end");
 		return list;
 	}
 	/**
@@ -77,6 +84,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 */
 	@Override
 	public int updateCustomer(Customer cus) {
+		Utils.getFileLogger().debug("updateCustomer start");
+		Utils.getsFileFormatterLogger().debug("paramter cus : %s",cus.toString());
 		Connection conn = null;
 		Statement stmt = null;
 		int result = -1;
@@ -89,25 +98,26 @@ public class CustomerDAOImpl implements CustomerDAO {
 				isActive = 0;
 			String datetime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
 			String sql = "UPDATE Customer SET "
-					+"`active`='"+isActive+"',"
-					+"`balance`='"+cus.getBalance()+"',"
-					+"`picture`='"+cus.getPicture()+"',"
-					+"`age`='"+cus.getAge()+"',"
-					+"`eyecolor`='"+cus.getEyecolor()+"',"
-					+"`lastName`='"+cus.getLastName()+"',"
-					+"`firstName`='"+cus.getFirstName()+"',"
-					+"`company`='"+cus.getCompany()+"',"
-					+"`email`='"+cus.getEmail()+"',"
-					+"`phone`='"+cus.getPhone()+"',"
-					+"`address`='"+cus.getAddress()+"',"
-					+"`about`='"+cus.getAbout()+"',"
-					+"`favoriteFruit`='"+cus.getFavoriteFruit()+"',"
-					+"`updated`='"+datetime+"'"
+					+"active='"+isActive+"',"
+					+"balance='"+cus.getBalance()+"',"
+					+"picture='"+cus.getPicture()+"',"
+					+"age='"+cus.getAge()+"',"
+					+"eyecolor='"+cus.getEyecolor()+"',"
+					+"lastName='"+cus.getLastName()+"',"
+					+"firstName='"+cus.getFirstName()+"',"
+					+"company='"+cus.getCompany()+"',"
+					+"email='"+cus.getEmail()+"',"
+					+"phone='"+cus.getPhone()+"',"
+					+"address='"+cus.getAddress()+"',"
+					+"about='"+cus.getAbout()+"',"
+					+"favoriteFruit='"+cus.getFavoriteFruit()+"',"
+					+"updated='"+datetime+"'"
 					+"WHERE "
 					+"id='"+cus.getId()+"';";
+			Utils.getsFileFormatterLogger().debug("SQL : %s", sql);
 			result = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Utils.getFileLogger().error(e.getMessage());
 		} finally {
 			try {
 				DBUtils.closeAll(conn, stmt, null);
@@ -115,7 +125,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 				e.printStackTrace();
 			}
 		}
-		
+		Utils.getFileLogger().debug("result : ", result);
+		Utils.getFileLogger().debug("updateCustomer end");
 		return result;
 	}
 
@@ -126,6 +137,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 */
 	@Override
 	public int addCustomer(Customer cus) {
+		Utils.getFileLogger().debug("addCustomer start");
+		Utils.getsFileFormatterLogger().debug("paramter cus : %s",cus.toString());
 		Connection conn = null;
 		Statement stmt = null;
 		int result = -1;
@@ -136,27 +149,27 @@ public class CustomerDAOImpl implements CustomerDAO {
 			if (cus.isActive() == false)
 				isActive = 0;
 			String datetime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
-			String sql = "INSERT INTO `customer`("
-					+ "`id`, "
-					+ "`_index`,"
-					+ " `guid`, "
-					+ "`active`, "
-					+ "`balance`, "
-					+ "`picture`, "
-					+ "`age`, "
-					+ "`eyecolor`, "
-					+ "`lastName`, "
-					+ "`firstName`, "
-					+ "`company`, "
-					+ "`email`, "
-					+ "`phone`, "
-					+ "`address`, "
-					+ "`about`, "
-					+ "`favoriteFruit`, "
-					+ "`created`, "
-					+ "`createdBy`, "
-					+ "`updated`, "
-					+ "`updatedBy`"
+			String sql = "INSERT INTO customer("
+					+ "id, "
+					+ "_index,"
+					+ " guid, "
+					+ "active, "
+					+ "balance, "
+					+ "picture, "
+					+ "age, "
+					+ "eyecolor, "
+					+ "lastName, "
+					+ "firstName, "
+					+ "company, "
+					+ "email, "
+					+ "phone, "
+					+ "address, "
+					+ "about, "
+					+ "favoriteFruit, "
+					+ "created, "
+					+ "createdBy, "
+					+ "updated, "
+					+ "updatedBy"
 					+ ") "
 					+ "VALUES ("
 					+ "'"+cus.getId()+"',"
@@ -180,10 +193,10 @@ public class CustomerDAOImpl implements CustomerDAO {
 					+ "'"+datetime+"',"
 					+ "'root'"
 					+ ");";
-			
+			Utils.getsFileFormatterLogger().debug("SQL : %s", sql);
 			result = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Utils.getFileLogger().error(e.getMessage());
 		} finally {
 			try {
 				DBUtils.closeAll(conn, stmt, null);
@@ -191,6 +204,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 				e.printStackTrace();
 			}
 		}
+		Utils.getFileLogger().debug("result : ", result);
+		Utils.getFileLogger().debug("addCustomer end");
 		return result;
 	}
 	
@@ -201,6 +216,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 */
 	@Override
 	public int deleteCustomer(String id) {
+		Utils.getFileLogger().debug("deleteCustomer start");
+		Utils.getsFileFormatterLogger().debug("paramter id : %s",id);
 		Connection conn = null;
 		Statement stmt = null;
 		int result = -1;
@@ -210,13 +227,15 @@ public class CustomerDAOImpl implements CustomerDAO {
 			stmt = conn.createStatement();
 			if (id != null) {
 				sql = "DELETE FROM customer WHERE id = '" + id + "';";
+				Utils.getsFileFormatterLogger().debug("SQL : %s", sql);
 			} else {
-				sql = "DELETE FROM customer;";	
+				sql = "DELETE FROM customer;";
+				Utils.getsFileFormatterLogger().debug("SQL : %s", sql);
 			}
 			
 			result = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Utils.getFileLogger().error(e.getMessage());
 		} finally {
 			try {
 				DBUtils.closeAll(conn, stmt, null);
@@ -224,6 +243,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 				e.printStackTrace();
 			}
 		}
+		Utils.getFileLogger().debug("result : ", result);
+		Utils.getFileLogger().debug("deleteCustomer end");
 		return result;
 	}
 

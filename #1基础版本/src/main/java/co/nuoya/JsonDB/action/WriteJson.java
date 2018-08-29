@@ -9,9 +9,12 @@ import co.nuoya.JsonDB.util.Utils;
 
 public class WriteJson {
 	public String writeJson() {
+		Utils.getFileLogger().info("writeJson start");
 		CustomerService custService = new CustomerServiceImpl();
-		List<Customer> result = custService.findCustomer(null);
-		
-		return Utils.writeListToJson(result);
+		List<Customer> resultCust = custService.findCustomer(null);
+		String result = Utils.writeListToJson(resultCust);
+		Utils.getFileLogger().info("result : {}", result);
+		Utils.getFileLogger().info("writeJson end");
+		return result;
 	}
 }

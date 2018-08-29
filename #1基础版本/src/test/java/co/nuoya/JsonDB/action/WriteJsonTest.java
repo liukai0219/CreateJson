@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import co.nuoya.JsonDB.DBUtil.DBUtils;
 
-public class WriteJsonTest{
+public class WriteJsonTest {
 	
 	@Before
 	public void setUp() throws SQLException {

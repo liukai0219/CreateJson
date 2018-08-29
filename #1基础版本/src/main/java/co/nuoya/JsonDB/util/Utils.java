@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 
 import com.google.gson.Gson;
 
@@ -42,4 +44,21 @@ public class Utils {
 		Gson gson = new Gson();
 		return gson.toJson(list);
 	}
+	
+	public static Logger getFileLogger() {
+		return (Logger) LogManager.getLogger(Constants.ASYN_ROLLING_FILE_LOGGER); 
+	}
+	
+	public static Logger getsFileFormatterLogger() {
+		return (Logger) LogManager.getFormatterLogger(Constants.ASYN_ROLLING_FILE_LOGGER);
+	}
+	
+	public static Logger getConsoleLogger() {
+		return (Logger) LogManager.getLogger(LogManager.ROOT_LOGGER_NAME); 
+	}
+	
+	public static Logger getConsoleFormatterLogger() {
+		return (Logger) LogManager.getFormatterLogger(LogManager.ROOT_LOGGER_NAME); 
+	}
+	
 }

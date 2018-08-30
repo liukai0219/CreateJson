@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">  
+	<Properties>
+		<Property name="LOG_HOME">D:/log</Property>
+		<Property name="FILE_NAME">applog</Property>
+	</Properties>
+    <Appenders>  
+        <Console name="Console" target="SYSTEM_OUT">  
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %l %logger{36} - %msg%n" />  
+        </Console>
+
+        <RollingRandomAccessFile  name="RollingFileAppender" fileName="${LOG_HOME}/${FILE_NAME}.log" filePattern="${LOG_HOME}/${FILE_NAME}-%d{yyyy-MM-dd HH-mm}-%i.log">
+        	<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level  %l %logger{36} - %msg%n" />  
+        	<Policies>
+        		<TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+        	</Policies>
+        	<!-- DefaultRolloverStrategy决定%i最大到几 -->
+        	<DefaultRolloverStrategy max="20"/>
+        </RollingRandomAccessFile>
+
+        <Async name="AsyncForRollingFile">
+        	<AppenderRef ref="RollingFileAppender" />
+        </Async>
+    </Appenders>  
+
+    <Loggers>  
+        <!-- 为了能利用root logger，通过控制台也输出该LOG，所以additivity设置为true -->
+        <Logger name="AsyncRollingFileLogger" level="debug" additivity="true">
+        	<AppenderRef ref="AsyncForRollingFile" />
+        </Logger>
+        <Root level="info">  
+            <AppenderRef ref="Console" />  
+        </Root>  
+    </Loggers>  
+</Configuration>

@@ -1,9 +1,5 @@
-com\maven\DBUtils\DBUtils.class
-com\maven\DAO\CustomerDAO.class
-com\maven\DAO\BaseDAO.class
-com\maven\DAO\CustomerDAOImpl.class
-com\maven\ReadJson\JsonRead$1.class
-com\maven\utils\Utils.class
-com\maven\ReadJson\JsonRead.class
-com\maven\bean\Customer.class
-com\maven\utils\Constants.class
+co\nuoya\JsonDB\dao\CustomerDAO.class
+co\nuoya\JsonDB\dao\BaseDAO.class
+co\nuoya\JsonDB\model\Tags.class
+co\nuoya\JsonDB\model\Acount.class
+co\nuoya\JsonDB\model\Customer.class

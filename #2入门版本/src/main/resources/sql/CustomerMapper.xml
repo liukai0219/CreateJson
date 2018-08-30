@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.maven.bean.Customer">
+<mapper namespace="co.nuoya.JsonDB.model.Customer">
 	<!-- 只需要匹配名字不一样的字段 -->
 	<resultMap type="Customer" id="selectCustomerResultMap">
 		<result column="_index" property="index" jdbcType="INTEGER"/>
@@ -34,7 +34,7 @@
 				AND active = #{active}
 			</when>
 			<otherwise>
-				AND balance is not null
+				AND acount_id is not null
 			</otherwise>
 		</choose>
 	</select>
@@ -91,7 +91,7 @@
 			<if test="index != null">_index=#{index},</if>
 			<if test="guid != null">guid=#{guid},</if> 
 			<if test="active != null">active=#{active},</if> 
-			<if test="balance != null">balance=#{balance},</if> 
+			<if test="acount != null">acount_id=#{acount.acount_id},</if> 
 			<if test="picture != null">picture=#{picture},</if> 
 			<if test="age != null">age=#{age},</if> 
 			<if test="eyecolor != null">eyecolor=#{eyecolor},</if> 
@@ -120,7 +120,7 @@
 	
 	<!-- 创建SQL代码片段 -->
 	<sql id="customer_field">
-		id, _index,guid, active, balance, picture, age, eyecolor, lastName, firstName, company, email, phone, address, about, favoriteFruit
+		id, _index,guid, active, acount_id, picture, age, eyecolor, lastName, firstName, company, email, phone, address, about, favoriteFruit
 	</sql>
 	
 	<!-- parameterType是可选的,因为MyBatis可以通过 TypeHandler推断出 -->
@@ -134,7 +134,7 @@
 			#{index},
 			#{guid}, 
 			#{active}, 
-			#{balance}, 
+			#{acount.acount_id},
 			#{picture}, 
 			#{age}, 
 			#{eyecolor}, 

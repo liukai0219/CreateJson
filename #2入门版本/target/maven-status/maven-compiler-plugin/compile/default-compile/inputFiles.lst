@@ -1,8 +1,17 @@
-D:\Workspaces\eclipse\20180604-maven-readJson\src\main\java\com\maven\DAO\BaseDAO.java
-D:\Workspaces\eclipse\20180604-maven-readJson\src\main\java\com\maven\bean\Customer.java
-D:\Workspaces\eclipse\20180604-maven-readJson\src\main\java\com\maven\DBUtils\DBUtils.java
-D:\Workspaces\eclipse\20180604-maven-readJson\src\main\java\com\maven\ReadJson\JsonRead.java
-D:\Workspaces\eclipse\20180604-maven-readJson\src\main\java\com\maven\DAO\CustomerDAO.java
-D:\Workspaces\eclipse\20180604-maven-readJson\src\main\java\com\maven\DAO\CustomerDAOImpl.java
-D:\Workspaces\eclipse\20180604-maven-readJson\src\main\java\com\maven\utils\Constants.java
-D:\Workspaces\eclipse\20180604-maven-readJson\src\main\java\com\maven\utils\Utils.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\action\ReadJson.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\dao\CustomerDAO.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\dao\AcountDAO.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\dao\BaseDAO.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\service\CustomerServiceImpl.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\DBUtil\DBUtils.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\dao\AcountDAOImpl.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\model\Acount.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\action\WriteJson.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\dao\TagsDAOImpl.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\util\Constants.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\model\Customer.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\dao\TagsDAO.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\model\Tags.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\service\CustomerService.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\dao\CustomerDAOImpl.java
+D:\Workspaces\eclipse\20180604-maven-readJson - 入门版本\src\main\java\co\nuoya\JsonDB\util\Utils.java

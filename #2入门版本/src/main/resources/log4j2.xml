@@ -29,6 +29,9 @@
         <Logger name="AsyncRollingFileLogger" level="debug" additivity="true">
         	<AppenderRef ref="AsyncForRollingFile" />
         </Logger>
+        <Logger name="co.nuoya.JsonDB.dao" level="debug" additivity="true">
+        	<AppenderRef ref="AsyncForRollingFile" />
+        </Logger>
         <Root level="info">  
             <AppenderRef ref="Console" />  
         </Root>  

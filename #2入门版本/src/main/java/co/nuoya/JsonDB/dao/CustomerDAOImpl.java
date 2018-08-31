@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import co.nuoya.JsonDB.DBUtil.DBUtils;
 import co.nuoya.JsonDB.model.Customer;
+import co.nuoya.JsonDB.util.Utils;
 
 public class CustomerDAOImpl implements CustomerDAO {
 	/**
@@ -18,6 +19,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 */
 	@Override
 	public List<Customer> findCustomer(String id) {
+		Utils.getFileLogger().info("findCustomer start");
+		Utils.getFileLogger().info("paramter id : {} ", id);
 		List<Customer> list = new ArrayList<Customer>();
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
@@ -27,6 +30,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 		} finally {
 			session.close();
 		}
+		Utils.getFileLogger().info("result : {} ", list.toString());
+		Utils.getFileLogger().info("findCustomer end");
 		return list;
 	}
 	
@@ -37,6 +42,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 */
 	@Override
 	public List<Customer> findCustomerByAgeAndActive(Map<String, Object> map) {
+		Utils.getFileLogger().info("findCustomerByAgeAndActive start");
+		Utils.getFileLogger().info("paramter map : {} ", map.toString());
 		List<Customer> list = new ArrayList<Customer>();
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
@@ -46,6 +53,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 		} finally {
 			session.close();
 		}
+		Utils.getFileLogger().info("result : {} ", list.toString());
+		Utils.getFileLogger().info("findCustomerByAgeAndActive end");
 		return list;
 	}
 	
@@ -56,6 +65,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 */
 	@Override
 	public List<Customer> findCustomerByAny(Map<String,Object> map) {
+		Utils.getFileLogger().info("findCustomerByAny start");
+		Utils.getFileLogger().info("paramter map : {} ", map.toString());
 		List<Customer> result = new ArrayList<Customer>();
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
@@ -65,6 +76,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 		} finally {
 			session.close();
 		}
+		Utils.getFileLogger().info("result : {} ", result.toString());
+		Utils.getFileLogger().info("findCustomerByAny end");
 		return result;
 	}
 	
@@ -75,6 +88,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 */
 	@Override
 	public List<Customer> findCustomerByName(List<String> list) {
+		Utils.getFileLogger().info("findCustomerByName start");
+		Utils.getFileLogger().info("paramter id : {} ", list.toString());
 		List<Customer> result = new ArrayList<Customer>();
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
@@ -84,6 +99,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 		} finally {
 			session.close();
 		}
+		Utils.getFileLogger().info("result : {} ", result.toString());
+		Utils.getFileLogger().info("findCustomerByName end");
 		return result;
 	}
 	
@@ -94,6 +111,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 */
 	@Override
 	public List<Customer> findCustomerByName(String[] params) {
+		Utils.getFileLogger().info("findCustomerByName start");
+		Utils.getFileLogger().info("paramter params : {} ", params.toString());
 		List<Customer> result = new ArrayList<Customer>();
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
@@ -103,12 +122,16 @@ public class CustomerDAOImpl implements CustomerDAO {
 		} finally {
 			session.close();
 		}
+		Utils.getFileLogger().info("result : {} ", result.toString());
+		Utils.getFileLogger().info("findCustomerByName end");
 		return result;
 	}
 	
 
 	@Override
 	public List<Customer> findCustomerByName(String param) {
+		Utils.getFileLogger().info("findCustomerByName start");
+		Utils.getFileLogger().info("paramter param : {} ", param);
 		List<Customer> result = new ArrayList<Customer>();
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
@@ -118,6 +141,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 		} finally {
 			session.close();
 		}
+		Utils.getFileLogger().info("result : {} ", result.toString());
+		Utils.getFileLogger().info("findCustomerByName end");
 		return result;
 	}
 	
@@ -128,6 +153,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 */
 	@Override
 	public int updateCustomer(Customer cus) {
+		Utils.getFileLogger().info("updateCustomer start");
+		Utils.getFileLogger().info("paramter cus : {} ", cus.toString());
 		int result = -1;
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
@@ -137,6 +164,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 		} finally {
 			session.close();
 		}
+		Utils.getFileLogger().info("result : {} ", result);
+		Utils.getFileLogger().info("updateCustomer end");
 		return result;
 	}
 
@@ -147,6 +176,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 */
 	@Override
 	public int addCustomer(Customer cus) {
+		Utils.getFileLogger().info("addCustomer start");
+		Utils.getFileLogger().info("paramter cus : {} ", cus.toString());
 		int result = -1;
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
@@ -156,6 +187,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 		} finally {
 			session.close();
 		}
+		Utils.getFileLogger().info("result : {} ", result);
+		Utils.getFileLogger().info("addCustomer end");
 		return result;
 	}
 	
@@ -166,6 +199,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 */
 	@Override
 	public int deleteCustomer(String id) {
+		Utils.getFileLogger().info("deleteCustomer start");
+		Utils.getFileLogger().info("paramter id : {} ", id);
 		int result = -1;
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
@@ -175,6 +210,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 		} finally {
 			session.close();
 		}
+		Utils.getFileLogger().info("result : {} ", result);
+		Utils.getFileLogger().info("deleteCustomer end");
 		return result;
 	}
 }

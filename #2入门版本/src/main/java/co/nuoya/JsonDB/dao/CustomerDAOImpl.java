@@ -25,8 +25,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			list = session.selectList("co.nuoya.JsonDB.model.Customer.selectCustomer", id);
-			session.commit();
+			list = session.selectList("co.nuoya.JsonDB.dao.Customer.selectCustomer", id);
 		} finally {
 			session.close();
 		}
@@ -48,8 +47,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			list = session.selectList("co.nuoya.JsonDB.model.Customer.selectCustomerByAgeAndActive", map);
-			session.commit();
+			list = session.selectList("co.nuoya.JsonDB.dao.Customer.selectCustomerByAgeAndActive", map);
 		} finally {
 			session.close();
 		}
@@ -71,8 +69,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			result = session.selectList("co.nuoya.JsonDB.model.Customer.selectCustomerByAny", map);
-			session.commit();
+			result = session.selectList("co.nuoya.JsonDB.dao.Customer.selectCustomerByAny", map);
 		} finally {
 			session.close();
 		}
@@ -94,8 +91,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			result = session.selectList("co.nuoya.JsonDB.model.Customer.selectCustomerByName", list);
-			session.commit();
+			result = session.selectList("co.nuoya.JsonDB.dao.Customer.selectCustomerByName", list);
 		} finally {
 			session.close();
 		}
@@ -117,8 +113,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			result = session.selectList("co.nuoya.JsonDB.model.Customer.selectCustomerByName_Array", params);
-			session.commit();
+			result = session.selectList("co.nuoya.JsonDB.dao.Customer.selectCustomerByName_Array", params);
 		} finally {
 			session.close();
 		}
@@ -136,8 +131,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			result = session.selectList("co.nuoya.JsonDB.model.Customer.selectCustomerByName_Like", param);
-			session.commit();
+			result = session.selectList("co.nuoya.JsonDB.dao.Customer.selectCustomerByName_Like", param);
 		} finally {
 			session.close();
 		}
@@ -159,7 +153,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			result = session.update("co.nuoya.JsonDB.model.Customer.updateCustomer", cus);
+			result = session.update("co.nuoya.JsonDB.dao.Customer.updateCustomer", cus);
 			session.commit();
 		} finally {
 			session.close();
@@ -182,7 +176,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			result = session.insert("co.nuoya.JsonDB.model.Customer.insertCustomer", cus);
+			result = session.insert("co.nuoya.JsonDB.dao.Customer.insertCustomer", cus);
 			session.commit();
 		} finally {
 			session.close();
@@ -205,7 +199,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			result = session.delete("co.nuoya.JsonDB.model.Customer.deleteCustomer", id);
+			result = session.delete("co.nuoya.JsonDB.dao.Customer.deleteCustomer", id);
 			session.commit();
 		} finally {
 			session.close();

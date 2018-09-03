@@ -81,10 +81,17 @@
             <directory>src/main/resources</directory>
             <includes>
                 <include>**/*.xml</include>
-                <include>*.xml</include>
+                <include>MybatisConfiguration.xml</include>
                 <include>*.json</include>
             </includes>
             <targetPath>resources</targetPath>
+        </resource>
+        <resource>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>log4j2.xml</include>
+            </includes>
+            <targetPath>.</targetPath>
         </resource>
     </resources>
  </build>

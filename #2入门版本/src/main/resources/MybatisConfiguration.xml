@@ -4,11 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <settings>
-    <setting name="logImpl" value="LOG4J2"/>
+	 <setting name="logImpl" value="LOG4J2"/>
   </settings>
+  
   <typeAliases>
   	<!-- 给co.nuoya.JsonDB.model.Customer指定别名Customer(减少类完全限定名的冗余) -->
   	<typeAlias alias="Customer" type="co.nuoya.JsonDB.model.Customer"/>
+  	<typeAlias alias="Acount" type="co.nuoya.JsonDB.model.Acount"/>
+  	<typeAlias alias="Tags" type="co.nuoya.JsonDB.model.Tags"/>
   </typeAliases>
  
   <environments default="development">
@@ -25,5 +28,7 @@
   
   <mappers>
     <mapper resource="resources/sql/CustomerMapper.xml"/>
+    <mapper resource="resources/sql/AcountMapper.xml"/>
+    <mapper resource="resources/sql/TagsMapper.xml"/>
   </mappers>
 </configuration>

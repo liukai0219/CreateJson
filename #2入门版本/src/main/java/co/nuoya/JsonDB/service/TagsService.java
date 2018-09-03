@@ -1,10 +1,10 @@
-package co.nuoya.JsonDB.dao;
+package co.nuoya.JsonDB.service;
 
 import java.util.List;
 
 import co.nuoya.JsonDB.model.Tags;
 
-public interface TagsDAO extends BaseDAO {
+public interface TagsService {
 	public List<Tags> select(String customer_id);
 	public int insert(Tags tags);
 	public int update(Tags tags);

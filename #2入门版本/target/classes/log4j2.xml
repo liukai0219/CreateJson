@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">  
+<Configuration status="warn">  
 	<Properties>
 		<Property name="LOG_HOME">D:/log</Property>
 		<Property name="FILE_NAME">applog</Property>
@@ -26,7 +26,10 @@
 
     <Loggers>  
         <!-- 为了能利用root logger，通过控制台也输出该LOG，所以additivity设置为true -->
-        <Logger name="AsyncRollingFileLogger" level="debug" additivity="true">
+        <Logger name="AsyncRollingFileLogger" level="DEBUG" additivity="true">
+        	<AppenderRef ref="AsyncForRollingFile" />
+        </Logger>
+        <Logger name="co.nuoya.JsonDB.dao" level="DEBUG" additivity="true">
         	<AppenderRef ref="AsyncForRollingFile" />
         </Logger>
         <Root level="info">  

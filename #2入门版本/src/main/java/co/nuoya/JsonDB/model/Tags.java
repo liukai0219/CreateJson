@@ -6,6 +6,7 @@ import java.util.Date;
 public class Tags implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id;
+	private String customer_id;
 	private String tag;
 	private Date created;
 	private String createdby;
@@ -16,6 +17,12 @@ public class Tags implements Serializable{
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getCustomer_id() {
+		return customer_id;
+	}
+	public void setCustomer_id(String customer_id) {
+		this.customer_id = customer_id;
 	}
 	public String getTag() {
 		return tag;

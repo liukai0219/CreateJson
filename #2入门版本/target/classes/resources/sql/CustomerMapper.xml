@@ -3,23 +3,27 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="co.nuoya.JsonDB.model.Customer">
+<mapper namespace="co.nuoya.JsonDB.dao.Customer">
 	<!-- 只需要匹配名字不一样的字段 -->
 	<resultMap type="Customer" id="selectCustomerResultMap">
 		<result column="_index" property="index" jdbcType="INTEGER"/>
+		
 	</resultMap>
 	
 	<!-- 当数据表的列名和bean中的字段名全一致时,只要指定resultType为相应的bean就行 -->
 	<!-- 当数据表的列名和bean中的字段名不全一致时,需要定义指定resultMap并把reresultMap属性的值设为resultMap的id -->
 	<select id="selectCustomer" resultMap="selectCustomerResultMap" parameterType="java.lang.String">
-		SELECT * FROM Customer
+		SELECT C.id, C._index,C.guid, C.active, C.acount_id, C.picture, C.age, C.eyecolor, C.lastName, C.firstName, C.company, C.email, C.phone, C.address, C.about, C.favoriteFruit,T.id,T.customer_id,T.tag,A.acount_id,A.balance
+		FROM Customer C
+		LEFT JOIN Acount A ON C.acount_id = A.acount_id
+		LEFT JOIN Tags T ON C.id = T.customer_id   
 		<!-- where 元素只在至少有一个子元素的条件返回 SQL 子句的情况下才去插入“WHERE”子句。 -->
 		<!-- 并且当开头为“AND”或“OR”，where 元素也会将它们去除。  -->
 		<!-- where可以用trim代替 -->
 		<where>
 			<!-- 在if标签对参数进行判断,可以使用_parameter,但仅限单个参数的情况 -->
 			<if test="_parameter != null"> 
-				id=#{id}
+				C.id=#{id}
 			</if>
 		</where>
 	</select>

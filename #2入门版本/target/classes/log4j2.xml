@@ -29,7 +29,7 @@
         <Logger name="AsyncRollingFileLogger" level="DEBUG" additivity="true">
         	<AppenderRef ref="AsyncForRollingFile" />
         </Logger>
-        <Logger name="co.nuoya.JsonDB.dao" level="DEBUG" additivity="true">
+        <Logger name="co.nuoya.JsonDB.dao" level="trace" additivity="true">
         	<AppenderRef ref="AsyncForRollingFile" />
         </Logger>
         <Root level="info">  

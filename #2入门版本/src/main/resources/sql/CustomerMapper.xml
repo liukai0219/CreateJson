@@ -4,16 +4,58 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="co.nuoya.JsonDB.dao.Customer">
-	<!-- 只需要匹配名字不一样的字段 -->
 	<resultMap type="Customer" id="selectCustomerResultMap">
+		<id column="id" property="id" />
 		<result column="_index" property="index" jdbcType="INTEGER"/>
-		
+		<result column="guid" property="guid"/>
+		<result column="active" property="active"/>
+		<result column="picture" property="picture"/>
+		<result column="age" property="age"/>
+		<result column="eyecolor" property="eyecolor"/>
+		<result column="lastName" property="lastName"/>
+		<result column="firstName" property="firstName"/>
+		<result column="company" property="company"/>
+		<result column="email" property="email"/>
+		<result column="phone" property="phone"/>
+		<result column="address" property="address"/>
+		<result column="about" property="about"/>
+		<result column="favoriteFruit" property="favoriteFruit"/>
+		<association property="acount" javaType="Acount">
+			<id column="acount_id" property="acount_id"/>
+			<result column="balance" property="balance"/>
+		</association>
+		<collection property="tags" ofType="Tags">
+			<id column="tid" property="id"/> <!-- 给id取别名解决一对多查询时只查出了一条数据 -->
+			<result column="customer_id" property="customer_id"/>
+			<result column="tag" property="tag"/>
+		</collection>
 	</resultMap>
 	
 	<!-- 当数据表的列名和bean中的字段名全一致时,只要指定resultType为相应的bean就行 -->
 	<!-- 当数据表的列名和bean中的字段名不全一致时,需要定义指定resultMap并把reresultMap属性的值设为resultMap的id -->
 	<select id="selectCustomer" resultMap="selectCustomerResultMap" parameterType="java.lang.String">
-		SELECT C.id, C._index,C.guid, C.active, C.acount_id, C.picture, C.age, C.eyecolor, C.lastName, C.firstName, C.company, C.email, C.phone, C.address, C.about, C.favoriteFruit,T.id,T.customer_id,T.tag,A.acount_id,A.balance
+		SELECT 
+			C.id, 
+			C._index,
+			C.guid, 
+			C.active, 
+			C.acount_id, 
+			C.picture, 
+			C.age, 
+			C.eyecolor, 
+			C.lastName, 
+			C.firstName, 
+			C.company, 
+			C.email, 
+			C.phone, 
+			C.address, 
+			C.about, 
+			C.favoriteFruit,
+			T.id AS tid,
+			T.customer_id,
+			T.tag,
+			A.acount_id,
+			A.balance
 		FROM Customer C
 		LEFT JOIN Acount A ON C.acount_id = A.acount_id
 		LEFT JOIN Tags T ON C.id = T.customer_id   

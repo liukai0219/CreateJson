@@ -1,8 +1,8 @@
 package co.nuoya.JsonDB.model;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -27,7 +27,7 @@ public class Customer implements Serializable{
 	private String phone;
 	private String address;
 	private String about;
-	private Tags[] tags;
+	private List<Tags> tags;
 	private String favoriteFruit;
 	private Date created;
 	private String createdby;
@@ -69,10 +69,10 @@ public class Customer implements Serializable{
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	public Tags[] getTags() {
+	public List<Tags> getTags() {
 		return tags;
 	}
-	public void setTags(Tags[] tags) {
+	public void setTags(List<Tags> tags) {
 		this.tags = tags;
 	}
 	public Acount getAccout() {
@@ -170,7 +170,7 @@ public class Customer implements Serializable{
 		return "Customer [operate=" + operate + ", id=" + id + ", index=" + index + ", guid=" + guid + ", active="
 				+ active + ", acount=" + acount + ", picture=" + picture + ", age=" + age + ", eyecolor=" + eyecolor
 				+ ", lastName=" + lastName + ", firstName=" + firstName + ", company=" + company + ", email=" + email
-				+ ", phone=" + phone + ", address=" + address + ",  tags=" + Arrays.toString(tags)
+				+ ", phone=" + phone + ", address=" + address + ",  tags=" + tags.toString()
 				+ ", favoriteFruit=" + favoriteFruit + ", created=" + created + ", createdby=" + createdby + ", update="
 				+ update + ", updateby=" + updateby + "]";
 	}

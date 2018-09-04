@@ -29,7 +29,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		} finally {
 			session.close();
 		}
-		Utils.getFileLogger().info("result : {} ", list.toString());
+		Utils.getFileLogger().info("result : {} , size : {}", list.toString(),list.size());
 		Utils.getFileLogger().info("findCustomer end");
 		return list;
 	}

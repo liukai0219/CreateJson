@@ -25,11 +25,11 @@ public class CustomerDAOImpl implements CustomerDAO {
 		SqlSessionFactory  sqlSessionFactory = DBUtils.getSqlSessionFactory();
 		SqlSession session = sqlSessionFactory.openSession();
 		try {
-			list = session.selectList("co.nuoya.JsonDB.dao.Customer.selectCustomer", id);
+			list = session.selectList("co.nuoya.JsonDB.dao.Customer.selectCustomer_Search", id);
 		} finally {
 			session.close();
 		}
-		Utils.getFileLogger().info("result : {} , size : {}", list.toString(),list.size());
+		Utils.getFileLogger().info("result  size : {}", list.size());
 		Utils.getFileLogger().info("findCustomer end");
 		return list;
 	}

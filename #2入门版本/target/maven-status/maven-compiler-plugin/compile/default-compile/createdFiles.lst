@@ -1,5 +1,5 @@
 co\nuoya\JsonDB\dao\CustomerDAO.class
-co\nuoya\JsonDB\dao\BaseDAO.class
-co\nuoya\JsonDB\model\Tags.class
 co\nuoya\JsonDB\model\Acount.class
+co\nuoya\JsonDB\model\Tags.class
 co\nuoya\JsonDB\model\Customer.class
+co\nuoya\JsonDB\dao\BaseDAO.class

@@ -3,8 +3,36 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+  <!-- 属性可以在以下地方定义：
+       1.properties 标签中
+       2.properties 标签的 resource 属性或者 url 属性指定的路径下的属性文件
+       3.JAVA中作为方法参数传递
+       mybatis依次读取，并且后面的会覆盖前面的-->
+  <properties resource="resources/config.properties">
+    <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/> <!-- 开启为占位符指定一个默认值 -->
+    <property name="org.apache.ibatis.parsing.PropertyParser.default-value-separator" value="?:"/> <!-- 把默认值分隔符设置为"?:",默认为":" -->
+    <property name="DRIVER" value="com.mysql.jdbc.Driver"/>
+  	<property name="URL" value="jdbc:mysql://127.0.0.1:3306/"/>
+  </properties>
+  
+  <!--  -->
   <settings>
-	 <setting name="logImpl" value="LOG4J2"/>
+	  <setting name="logImpl" value="SLF4J"/>
+	  <setting name="cacheEnabled" value="true"/>
+	  <setting name="lazyLoadingEnabled" value="true"/>
+	  <setting name="multipleResultSetsEnabled" value="true"/>
+	  <setting name="useColumnLabel" value="true"/>
+	  <setting name="useGeneratedKeys" value="false"/>
+	  <setting name="autoMappingBehavior" value="PARTIAL"/>
+	  <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+	  <setting name="defaultExecutorType" value="SIMPLE"/>
+	  <setting name="defaultStatementTimeout" value="25"/>
+	  <setting name="defaultFetchSize" value="100"/>
+	  <setting name="safeRowBoundsEnabled" value="false"/>
+	  <setting name="mapUnderscoreToCamelCase" value="false"/>
+	  <setting name="localCacheScope" value="SESSION"/>
+	  <setting name="jdbcTypeForNull" value="OTHER"/>
+	  <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
   </settings>
   
   <typeAliases>
@@ -18,10 +46,10 @@
     <environment id="development">
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
-        <property name="driver" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/json_Mybatis"/>
-        <property name="username" value="root"/>
-        <property name="password" value="572165"/>
+        <property name="driver" value="${DRIVER}"/>
+        <property name="url" value="${URL}${DB_NAME}"/>
+        <property name="username" value="${USERNAME?:root}"/> <!-- 为占位符指定一个默认值：当USERNAME没有设置时，USERNAME=root -->
+        <property name="password" value="${PASSWORD?:572165}"/>
       </dataSource>
     </environment>
   </environments>

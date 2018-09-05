@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class Utils {
 	/**
@@ -41,7 +42,7 @@ public class Utils {
 	}
 	
 	public static <T> String writeListToJson(List<T> list) {
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().create();
 		return gson.toJson(list);
 	}
 	

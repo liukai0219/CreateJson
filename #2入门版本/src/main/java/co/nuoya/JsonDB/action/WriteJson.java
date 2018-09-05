@@ -12,6 +12,11 @@ public class WriteJson {
 		Utils.getFileLogger().info("writeJson start");
 		CustomerService custService = new CustomerServiceImpl();
 		List<Customer> resultCust = custService.findCustomer(null);
+		
+		resultCust.forEach($->{
+			//$.getAccout().toString();
+			$.getTags().toString();
+			});
 		String result = Utils.writeListToJson(resultCust);
 		Utils.getFileLogger().info("result : {}", result);
 		Utils.getFileLogger().info("writeJson end");

@@ -81,8 +81,9 @@
             <directory>src/main/resources</directory>
             <includes>
                 <include>**/*.xml</include>
-                <include>MybatisConfiguration.xml</include>
+                <include>*.xml</include>
                 <include>*.json</include>
+                <include>config.properties</include>
             </includes>
             <targetPath>resources</targetPath>
         </resource>

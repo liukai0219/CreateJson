@@ -14,8 +14,9 @@ public class WriteJson {
 		List<Customer> resultCust = custService.findCustomer(null);
 		
 		resultCust.forEach($->{
-			//$.getAccout().toString();
-			$.getTags().toString();
+			
+			$.getAccout();
+			$.getTags();
 			});
 		String result = Utils.writeListToJson(resultCust);
 		Utils.getFileLogger().info("result : {}", result);

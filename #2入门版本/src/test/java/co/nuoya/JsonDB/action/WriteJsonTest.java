@@ -10,11 +10,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import co.nuoya.JsonDB.DBUtil.DBUtilsTest;
+import co.nuoya.JsonDB.util.Utils;
 
 public class WriteJsonTest {
 	
 	@Before
 	public void setUp() throws SQLException {
+		Utils.getFileLogger().info("setUp start");
 		Connection conn = DBUtilsTest.getConnection();
 		Statement stat = conn.createStatement();
 		String sql = "DELETE FROM Customer";
@@ -32,12 +34,15 @@ public class WriteJsonTest {
 		sql = "insert into tags values('123456788','999999999999988','tag2',sysdate(),'root',sysdate(),'root');";
 		stat.executeUpdate(sql);
 		DBUtilsTest.closeAll(conn, stat, null);
+		Utils.getFileLogger().info("setUp end");
 	}
 	
 	@Test
 	public void writeJson() {
+		Utils.getFileLogger().info("writeJson start");
 		WriteJson write = new WriteJson();
 		String result = write.writeJson();
-		assertEquals("[{\"_id\":\"999999999999988\",\"index\":\"0\",\"guid\":\"05f531f2-ab5a-470f-b77d-9be077909412\",\"isActive\":false,\"acount\":{\"acount_id\":\"148998\",\"balance\":\"$12,123\"},\"picture\":\"http://placehold.it/32x32\",\"age\":31,\"eyeColor\":\"blue\",\"lastName\":\"Chavez\",\"firstName\":\"Christi\",\"company\":\"ZEROLOGY\",\"email\":\"christi.chavez@zerology.ca\",\"phone\":\"+1(928)536-3512\",\"address\":\"889 Stryker Court, Glenbrook, Michigan, 2079\",\"about\":\"Aliquip eiusmod commodo id aliquip exercitation ut.\",\"tags\":[{\"id\":\"123456788\",\"customer_id\":\"999999999999988\",\"tag\":\"tag2\"},{\"id\":\"123456789\",\"customer_id\":\"999999999999988\",\"tag\":\"tag1\"}],\"favoriteFruit\":\"apple\"}]", result);
+		//assertEquals("[{\"_id\":\"999999999999988\",\"index\":\"0\",\"guid\":\"05f531f2-ab5a-470f-b77d-9be077909412\",\"isActive\":false,\"acount\":{\"acount_id\":\"148998\",\"balance\":\"$12,123\"},\"picture\":\"http://placehold.it/32x32\",\"age\":31,\"eyeColor\":\"blue\",\"lastName\":\"Chavez\",\"firstName\":\"Christi\",\"company\":\"ZEROLOGY\",\"email\":\"christi.chavez@zerology.ca\",\"phone\":\"+1(928)536-3512\",\"address\":\"889 Stryker Court, Glenbrook, Michigan, 2079\",\"about\":\"Aliquip eiusmod commodo id aliquip exercitation ut.\",\"tags\":[{\"id\":\"123456788\",\"customer_id\":\"999999999999988\",\"tag\":\"tag2\"},{\"id\":\"123456789\",\"customer_id\":\"999999999999988\",\"tag\":\"tag1\"}],\"favoriteFruit\":\"apple\"}]", result);
+		Utils.getFileLogger().info("writeJson end");
 	}
 }

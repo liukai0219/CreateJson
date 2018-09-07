@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import co.nuoya.JsonDB.model.Customer;
+
 public class Utils {
 	/**
 	 * 输出信息
@@ -33,7 +35,7 @@ public class Utils {
 		File file = new File(path);
 		try {
 			content = FileUtils.readFileToString(file,"UTF-8");
-			Gson gson = new Gson();
+			Gson gson = new GsonBuilder().registerTypeHierarchyAdapter(Customer.class, new CustomerAdapter()).create();
 			result = gson.fromJson(content, collectionType);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -42,7 +44,7 @@ public class Utils {
 	}
 	
 	public static <T> String writeListToJson(List<T> list) {
-		Gson gson = new GsonBuilder().create();
+		Gson gson = new GsonBuilder().registerTypeHierarchyAdapter(Customer.class, new CustomerAdapter()).create();
 		return gson.toJson(list);
 	}
 	

@@ -18,6 +18,7 @@ public class ReadJsonTest {
 	
 	@Before
 	public void setUp() throws SQLException {
+		Utils.getFileLogger().info("setUp start");
 		Connection conn = DBUtilsTest.getConnection();
 		Statement stat = conn.createStatement();
 		String sql = "DELETE FROM Customer";
@@ -35,12 +36,13 @@ public class ReadJsonTest {
 		sql = "insert into tags values('123456788','999999999999988','tag2',sysdate(),'root',sysdate(),'root');";
 		stat.executeUpdate(sql);
 		DBUtilsTest.closeAll(conn, stat, null);
-		
+		Utils.getFileLogger().info("setUp end");
 	}
 	
 	
 	@Test
 	public void readJson(){
+		Utils.getFileLogger().info("readJson start");
 		ReadJson readJson = new ReadJson();
 		List<String> result = readJson.readJson("./src/main/resources/customers.json");
 		
@@ -63,20 +65,24 @@ public class ReadJsonTest {
 		assertEquals("顾客不存在",result.get(11));
 		assertEquals("顾客不存在",result.get(12));
 		assertEquals("顾客已存在",result.get(13));
-		
+		Utils.getFileLogger().info("readJson end");
 	}
 	
 	@Test
 	public void findAllCustomer() {
+		Utils.getFileLogger().info("findAllCustomer start");
 		ReadJson readJson = new ReadJson();
 		List<Customer> result = readJson.findAllCustomer();
 		
 		assertEquals(1,result.size());
+		Utils.getFileLogger().info("findAllCustomer end");
 	}
 	
 	@Test
 	public void deleteDB() {
+		Utils.getFileLogger().info("deleteDB start");
 		ReadJson readJson = new ReadJson();
 		assertEquals(1,readJson.deleteDB());
+		Utils.getFileLogger().info("deleteDB end");
 	}
 }

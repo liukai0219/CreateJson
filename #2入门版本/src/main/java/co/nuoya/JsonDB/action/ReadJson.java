@@ -26,8 +26,7 @@ public class ReadJson {
 		/**
 		 * 从json文件中读取数据，生成list
 		 */
-		Type collectionType = new TypeToken<List<Customer>>(){}.getType();
-		List<Customer> customer = Utils.readJsonToList(path,collectionType);
+		List<Customer> customer = Utils.readJsonToList(path,Customer.class);
 		
 		CustomerService custService = new CustomerServiceImpl();
 		customer.forEach($->{

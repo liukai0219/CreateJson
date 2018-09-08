@@ -2,6 +2,7 @@ package co.nuoya.JsonDB.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +30,15 @@ public class Utils {
 	 * @param path
 	 * @return result
 	 */
-	public static <T> List<T> readJsonToList(String path,Type collectionType) {
+	public static <T> List<T> readJsonToList(String path,Class<T> clazz) {
 		String content = "";
 		List<T> result = new ArrayList<T>();
 		File file = new File(path);
 		try {
 			content = FileUtils.readFileToString(file,"UTF-8");
 			Gson gson = new GsonBuilder().registerTypeHierarchyAdapter(Customer.class, new CustomerAdapter()).create();
-			result = gson.fromJson(content, collectionType);
+			Type type = new ParameterizedTypeImpl(List.class, new Class[]{Customer.class});
+			result = gson.fromJson(content, type);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -51,6 +53,5 @@ public class Utils {
 	public static Logger getFileLogger() {
 		return (Logger) LoggerFactory.getLogger(Constants.ASYN_ROLLING_FILE_LOGGER);
 	}
-	
 	
 }

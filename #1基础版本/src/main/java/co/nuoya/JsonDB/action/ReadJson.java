@@ -1,12 +1,7 @@
 package co.nuoya.JsonDB.action;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.logging.log4j.Level;
-
-import com.google.gson.reflect.TypeToken;
 
 import co.nuoya.JsonDB.model.Customer;
 import co.nuoya.JsonDB.service.CustomerService;
@@ -28,8 +23,7 @@ public class ReadJson {
 		/**
 		 * 从json文件中读取数据，生成list
 		 */
-		Type collectionType = new TypeToken<List<Customer>>(){}.getType();
-		List<Customer> customer = Utils.readJsonToList(path,collectionType);
+		List<Customer> customer = Utils.readJsonToList(path,Customer.class);
 		
 		CustomerService custService = new CustomerServiceImpl();
 		customer.forEach($->{

@@ -12,6 +12,8 @@ import org.apache.logging.log4j.core.Logger;
 
 import com.google.gson.Gson;
 
+import co.nuoya.JsonDB.model.Customer;
+
 public class Utils {
 	/**
 	 * 输出信息
@@ -26,14 +28,15 @@ public class Utils {
 	 * @param path
 	 * @return result
 	 */
-	public static <T> List<T> readJsonToList(String path,Type collectionType) {
+	public static <T> List<T> readJsonToList(String path,Class<T> clazz) {
 		String content = "";
 		List<T> result = new ArrayList<T>();
 		File file = new File(path);
 		try {
 			content = FileUtils.readFileToString(file,"UTF-8");
 			Gson gson = new Gson();
-			result = gson.fromJson(content, collectionType);
+			Type type = new ParameterizedTypeImpl(List.class, new Class[]{clazz});
+			result = gson.fromJson(content, type);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -29,7 +29,6 @@ public class ReadJsonTest {
 	
 	@Test
 	public void readJson(){
-		Utils.printMsg("readJson");
 		ReadJson readJson = new ReadJson();
 		List<String> result = readJson.readJson("./src/main/resources/customers.json");
 		
@@ -57,7 +56,6 @@ public class ReadJsonTest {
 	
 	@Test
 	public void findAllCustomer() {
-		Utils.printMsg("findAllCustomer");
 		ReadJson readJson = new ReadJson();
 		List<Customer> result = readJson.findAllCustomer();
 		
@@ -66,7 +64,6 @@ public class ReadJsonTest {
 	
 	@Test
 	public void deleteDB() {
-		Utils.printMsg("deleteDB");
 		ReadJson readJson = new ReadJson();
 		assertEquals(1,readJson.deleteDB());
 	}

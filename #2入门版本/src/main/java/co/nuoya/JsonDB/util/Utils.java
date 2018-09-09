@@ -37,7 +37,7 @@ public class Utils {
 		try {
 			content = FileUtils.readFileToString(file,"UTF-8");
 			Gson gson = new GsonBuilder().registerTypeHierarchyAdapter(Customer.class, new CustomerAdapter()).create();
-			Type type = new ParameterizedTypeImpl(List.class, new Class[]{Customer.class});
+			Type type = new ParameterizedTypeImpl(List.class, new Class[]{clazz});
 			result = gson.fromJson(content, type);
 		} catch (IOException e) {
 			e.printStackTrace();

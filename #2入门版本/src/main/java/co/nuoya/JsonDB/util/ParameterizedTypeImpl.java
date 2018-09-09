@@ -27,5 +27,4 @@ public class ParameterizedTypeImpl implements ParameterizedType {
 	public Type getOwnerType() {
 		return null;
 	}
-
 }

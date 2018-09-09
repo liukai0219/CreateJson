@@ -46,6 +46,7 @@ public class CustomerAdapter extends TypeAdapter<Customer> {
 		out.name("age").value(value.getAge());
 		out.name("eyeColor").value(value.getEyecolor());
 		out.name("lastName").value(value.getLastName());
+		out.name("firstName").value(value.getFirstName());
 		out.name("company").value(value.getCompany());
 		out.name("email").value(value.getEmail());
 		out.name("phone").value(value.getPhone());

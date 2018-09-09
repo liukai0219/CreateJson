@@ -2,40 +2,40 @@ package co.nuoya.JsonDB.action;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+import java.io.Reader;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.jdbc.ScriptRunner;
 import org.junit.Before;
 import org.junit.Test;
 
-import co.nuoya.JsonDB.DBUtil.DBUtilsTest;
 import co.nuoya.JsonDB.model.Customer;
 import co.nuoya.JsonDB.util.Utils;;
 
 public class ReadJsonTest {
 	
 	@Before
-	public void setUp() throws SQLException {
+	public void setUp() throws SQLException, ClassNotFoundException, IOException {
 		Utils.getFileLogger().info("setUp start");
-		Connection conn = DBUtilsTest.getConnection();
-		Statement stat = conn.createStatement();
-		String sql = "DELETE FROM Customer";
-		stat.executeUpdate(sql);
-		sql = "DELETE FROM Acount";
-		stat.executeUpdate(sql);
-		sql = "DELETE FROM Tags";
-		stat.executeUpdate(sql);
-		sql = "INSERT INTO customer(id, _index, guid, active, acount_id, picture, age, eyecolor, lastName, firstName, company, email, phone, address, about, favoriteFruit, created, createdBy, updated, updatedBy) VALUES ('999999999999988','0','05f531f2-ab5a-470f-b77d-9be077909412',0,'148998','http://placehold.it/32x32',31,'blue','Chavez','Christi','ZEROLOGY','christi.chavez@zerology.ca','+1(928)536-3512','889 Stryker Court, Glenbrook, Michigan, 2079','Ex proident adipisicing sunt nostrud deserunt reprehenderit ut do. Ex enim laboris esse ullamco aliquip ullamco exercitation adipisicing tempor exercitation. Aliqua ex proident nostrud excepteur duis culpa. Anim ea fugiat tempor labore. Sunt nulla id aliqua quis id culpa. Sunt mollit elit excepteur enim pariatur aute. Aliquip eiusmod commodo id aliquip exercitation ut.','apple',sysdate(),'root',sysdate(),'root');";
-		stat.executeUpdate(sql);
-		sql = "insert into acount values('148998','$12,123',sysdate(),'root',sysdate(),'root');";
-		stat.executeUpdate(sql);
-		sql = "insert into tags values('123456789','999999999999988','tag1',sysdate(),'root',sysdate(),'root');";
-		stat.executeUpdate(sql);
-		sql = "insert into tags values('123456788','999999999999988','tag2',sysdate(),'root',sysdate(),'root');";
-		stat.executeUpdate(sql);
-		DBUtilsTest.closeAll(conn, stat, null);
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/json_Mybatis", "root", "572165");
+	    Reader reader = Resources.getResourceAsReader("./CreateDBForReadTest.sql");
+	    
+	    ScriptRunner runner = new ScriptRunner(conn);
+	    runner.setLogWriter(null);
+	    runner.setErrorLogWriter(null);
+	    runner.runScript(reader);
+	    conn.commit();
+	    reader.close();
+		
+		
+		
+		
 		Utils.getFileLogger().info("setUp end");
 	}
 	

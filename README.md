@@ -8,3 +8,6 @@ Maven+GSON+MySQL+Junit4+Log4j2
 
 ②引入mybatis持久化框架
 Maven+GSON+MySQL+Mybatis+Junit4+SLF4j+Log4j2
+
+③加入web
+Maven+GSON+MySQL+Mybatis+jsp+Junit4+SLF4j+Log4j2

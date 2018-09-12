@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!-- 属性可以在以下地方定义：
+       1.properties 标签中
+       2.properties 标签的 resource 属性或者 url 属性指定的路径下的属性文件
+       3.JAVA中作为方法参数传递
+       mybatis依次读取，并且后面的会覆盖前面的-->
+  <properties resource="resources/config.properties">
+    <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/> <!-- 开启为占位符指定一个默认值 -->
+    <property name="org.apache.ibatis.parsing.PropertyParser.default-value-separator" value="?:"/> <!-- 把默认值分隔符设置为"?:",默认为":" -->
+    <property name="DRIVER" value="com.mysql.jdbc.Driver"/>
+  	<property name="URL" value="jdbc:mysql://127.0.0.1:3306/"/>
+  </properties>
+  
+  <!-- MyBatis中各种参数的设置 -->
+  <settings>
+	  <setting name="logImpl" value="SLF4J"/><!-- 指定 MyBatis所用日志，未指定时自动查找。若项目其他部分使用了Commons Logging，而你想要指定其他日志，需要指定该值，其他时候不用指定 -->
+	  <setting name="cacheEnabled" value="true"/><!-- 是否开启缓存 -->
+	  <setting name="lazyLoadingEnabled" value="true"/><!-- 是否懒加载 -->
+	  <setting name="multipleResultSetsEnabled" value="true"/><!-- 是否允许返回多结果集 -->
+	  <setting name="useColumnLabel" value="true"/><!-- 使用列标签代替列名 -->
+	  <setting name="useGeneratedKeys" value="false"/><!--允许自动生成主键  -->
+	  <setting name="autoMappingBehavior" value="PARTIAL"/><!-- 指定如何自动映射 -->
+	  <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/><!--指定发现自动映射目标未知列的行为  -->
+	  <setting name="defaultExecutorType" value="SIMPLE"/><!-- 配置默认的执行器 -->
+	  <setting name="defaultStatementTimeout" value="25"/><!-- 超时时间 -->
+	  <setting name="defaultFetchSize" value="100"/><!-- 结果集获取数量 -->
+	  <setting name="safeRowBoundsEnabled" value="false"/><!-- 是否允许在嵌套语句中使用分页 -->
+	  <setting name="mapUnderscoreToCamelCase" value="false"/><!-- 是否开启自动驼峰命名规则映射 -->
+	  <setting name="localCacheScope" value="SESSION"/><!-- 本地缓存机制 -->
+	  <setting name="jdbcTypeForNull" value="OTHER"/><!-- 为空值指定 JDBC 类型 -->
+	  <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/><!-- 指定触发一次延迟加载的方法 -->
+  </settings>
+  
+  <typeAliases>
+  	<!-- 给co.nuoya.JsonDB.model.Customer指定别名Customer(减少类完全限定名的冗余) -->
+  	<typeAlias alias="Customer" type="co.nuoya.JsonDB.model.Customer"/>
+  	<typeAlias alias="Acount" type="co.nuoya.JsonDB.model.Acount"/>
+  	<typeAlias alias="Tags" type="co.nuoya.JsonDB.model.Tags"/>
+  </typeAliases>
+ 
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${DRIVER}"/>
+        <property name="url" value="${URL}${DB_NAME}"/>
+        <property name="username" value="${USERNAME?:root}"/> <!-- 为占位符指定一个默认值：当USERNAME没有设置时，USERNAME=root -->
+        <property name="password" value="${PASSWORD?:572165}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  
+  <mappers>
+    <mapper resource="resources/sql/CustomerMapper.xml"/>
+    <mapper resource="resources/sql/AcountMapper.xml"/>
+    <mapper resource="resources/sql/TagsMapper.xml"/>
+  </mappers>
+</configuration>

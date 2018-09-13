@@ -1,17 +1,31 @@
 package co.nuoya.JsonDB.action;
 
-import java.lang.reflect.Type;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.reflect.TypeToken;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import co.nuoya.JsonDB.model.Customer;
 import co.nuoya.JsonDB.service.CustomerService;
 import co.nuoya.JsonDB.service.CustomerServiceImpl;
 import co.nuoya.JsonDB.util.Utils;
 
-public class ReadJson {
+public class ReadJson extends HttpServlet{
+	private static final long serialVersionUID = 1L;
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doPost(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		readJson(req.getParameter("url"));
+	}
 	
 	public List<String> readJson(String path){
 		Utils.getFileLogger().info("readJson start");

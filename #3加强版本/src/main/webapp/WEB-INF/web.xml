@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>TagTest</display-name>
+  
+  <servlet>
+  	<servlet-name>WriteJson</servlet-name>
+  	<servlet-class>co.nuoya.JsonDB.action.WriteJson</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>WriteJson</servlet-name>
+  	<url-pattern>/WriteJson</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ReadJson</servlet-name>
+  	<servlet-class>co.nuoya.JsonDB.action.ReadJson</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ReadJson</servlet-name>
+  	<url-pattern>/ReadJson</url-pattern>
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>

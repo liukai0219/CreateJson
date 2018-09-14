@@ -8,13 +8,16 @@
 </head>
 <body>
 	<form action="WriteJson" method="get">
-		<input type="submit" value="submit" />
+		WriteJson:<input type="submit" value="submit" />
 	</form>
 	
 	<form action="ReadJson" method="get">
-		./src/main/resources/customers.json
-		url:<input type="text" name="url" value=""/>
+		ReadJson:<input type="text" name="url" value=""/>
 		<input type="submit" value="submit" />
+	</form>
+	
+	<form action="ServletTest" method="get">
+		ServletTest:<input type="submit" value="submit" />
 	</form>
 </body>
 </html>

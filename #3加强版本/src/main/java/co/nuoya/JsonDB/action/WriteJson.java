@@ -3,10 +3,12 @@ package co.nuoya.JsonDB.action;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import co.nuoya.JsonDB.model.Customer;
 import co.nuoya.JsonDB.service.CustomerService;
@@ -23,6 +25,19 @@ public class WriteJson extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("name", "Tom");
+		req.setAttribute("name", "ABC");
+		req.removeAttribute("name");
+		
+		HttpSession session = req.getSession();
+		session.setAttribute("name", "Tom");
+		session.setAttribute("name", "ABC");
+		session.removeAttribute("name");
+		
+		ServletContext context = req.getServletContext();
+		context.setAttribute("name", "Tom");
+		context.setAttribute("name", "ABC");
+		context.removeAttribute("name");
 		resp.getWriter().println(writeJson());
 	}
 	

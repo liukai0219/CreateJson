@@ -1,5 +1,6 @@
 package co.nuoya.JsonDB.listener;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletRequestAttributeEvent;
 import javax.servlet.ServletRequestAttributeListener;
 import javax.servlet.ServletRequestEvent;
@@ -31,7 +32,8 @@ public class RequestListnerTest implements ServletRequestListener, ServletReques
 	@Override
 	public void requestInitialized(ServletRequestEvent sre) {
 		System.out.println("客戶端向服務器發起了請求" + "-----" + sre.toString());
-
+		ServletContext context = sre.getServletContext();
+		context.setAttribute("totalReqCount", (int)context.getAttribute("totalReqCount") + 1);
 	}
 
 }

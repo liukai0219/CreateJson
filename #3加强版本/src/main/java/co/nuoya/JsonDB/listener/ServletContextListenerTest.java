@@ -27,6 +27,8 @@ public class ServletContextListenerTest implements ServletContextListener, Servl
 		System.out.println("服务器初始化！" + "-----" + sce.toString());
 		//初始化在线人数
 		sce.getServletContext().setAttribute("onLineCount", 0);
+		//初始化访问次数
+		sce.getServletContext().setAttribute("totalReqCount", 0);
 	}
 
 	@Override

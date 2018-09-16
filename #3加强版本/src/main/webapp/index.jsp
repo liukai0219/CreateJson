@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,16 +8,16 @@
 </head>
 <body>
 	<form action="WriteJson" method="get">
-		WriteJson:<input type="submit" value="submit" />
+		WriteJson1：<input type="submit" value="submit" />
 	</form>
 	
 	<form action="ReadJson" method="get">
-		ReadJson:<input type="text" name="url" value=""/>
+		ReadJson：<input type="text" name="url" value=""/>
 		<input type="submit" value="submit" />
 	</form>
 	
 	<form action="ServletTest" method="get">
-		ServletTest:<input type="submit" value="submit" />
+		ServletTest：<input type="submit" value="submit" />
 	</form>
 </body>
 </html>

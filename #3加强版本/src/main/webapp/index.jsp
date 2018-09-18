@@ -17,7 +17,20 @@
 	</form>
 	
 	<form action="ServletTest" method="get">
-		ServletTest：<input type="submit" value="submit" />
+		ServletTest：
+		<table>
+		  <tr><td><input type="checkbox" value="0" id="allCheck" name="checks"> 全选</td></tr>
+		  <tr><td></td></tr>
+		  <tr><td><input type="checkbox" value="A" name="checks"> A</td></tr>
+		  <tr><td></td></tr>
+		  <tr><td><input type="checkbox" value="B" name="checks"> B</td></tr>
+		  <tr><td></td></tr>
+		  <tr><td><input type="checkbox" value="C" name="checks"> C</td></tr>
+		  <tr><td></td></tr>
+		  <tr><td><input type="checkbox" value="D" name="checks"> D</td></tr>
+		</table>
+		<input type="text" name="testname"/> 
+		<input type="submit" value="submit" />
 	</form>
 </body>
 </html>

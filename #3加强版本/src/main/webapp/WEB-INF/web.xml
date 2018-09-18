@@ -23,7 +23,7 @@
   </filter>
   <filter-mapping>
   	<filter-name>FilterTest</filter-name>
-  	<url-pattern>/*</url-pattern>
+  	<url-pattern>/ServletTest</url-pattern>
   </filter-mapping>
   
   <filter>

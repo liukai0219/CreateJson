@@ -1,6 +1,8 @@
 package co.nuoya.JsonDB.action;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Enumeration;
 
@@ -9,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
 
 import co.nuoya.JsonDB.util.Utils;
 
@@ -37,9 +41,9 @@ public class ServletTest extends HttpServlet {
 		 * 只能读取不能修改，读取可以使用request.getParameter()读取
 		 * 在服务器获取时都以String类型看待
 		 */
-		Utils.getFileLogger().debug("返回指定的参数的值：{}",req.getParameter("testname"));
+		//Utils.getFileLogger().debug("返回指定的参数的值：{}",req.getParameter("testname"));
 		//用于能返回多个结果的组件，如checkbox
-		Utils.getFileLogger().debug("返回指定参数的值数组：{}",Arrays.toString(req.getParameterValues("checks")));
+		//Utils.getFileLogger().debug("返回指定参数的值数组：{}",Arrays.toString(req.getParameterValues("checks")));
 		Utils.getFileLogger().debug("返回这个请求所用的协议：{}",req.getProtocol());
 		Utils.getFileLogger().debug("返回发送请求者的IP地址：{}",req.getRemoteAddr());
 		Utils.getFileLogger().debug("返回发送请求者的主机名称：{}",req.getRemoteHost());
@@ -50,16 +54,19 @@ public class ServletTest extends HttpServlet {
 		Utils.getFileLogger().debug("返回接收请求的端口号：{}",req.getServerPort());
 		Utils.getFileLogger().debug("返回发送请求URL：{}",req.getServletPath());
 		
+		//String is = IOUtils.toString(req.getInputStream(),"gb2312");
+		//Utils.getFileLogger().debug(" 返回一个输入流用来从请求体读取二进制数据：{}",is);
 		
+		//getInputStream(),getReader(),getParameter()只能三选一
+		BufferedReader reader = req.getReader();
+		Utils.getFileLogger().debug(" getReader：{}",reader.readLine());
 		
-		System.out.println("ServletTest doGet");
 		resp.getWriter().append("hello world!");
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("ServletTest doPost");
-		resp.getWriter().append("hello world!");
+		doGet(req,resp);
 	}
 	
 	@Override

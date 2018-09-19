@@ -1,7 +1,8 @@
 package co.nuoya.JsonDB.action;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -24,7 +25,20 @@ public class ReadJson extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		readJson(req.getParameter("url"));
+		String fileName = req.getParameter("filename");
+		Utils.getFileLogger().info("文件名:{}",fileName);
+		String url = req.getServletContext().getRealPath("/WEB-INF/classes/resources/" + fileName);
+		File file = new File(url);
+		if (file.exists()) {
+			Utils.getFileLogger().info("readJson getRealPath:{}",req.getServletContext().getRealPath("/WEB-INF/classes/resources/" + fileName));//OK
+			Utils.getFileLogger().info("readJson getResource:{}",req.getServletContext().getResource("/WEB-INF/classes/resources/" + fileName).getPath());//OK
+			Utils.getFileLogger().info("readJson ReadJson.class.getClassLoader().getResource:{}",ReadJson.class.getClassLoader().getResource("/resources/" + fileName).getPath());//OK
+			
+			List<String> result = readJson(url);
+			resp.getWriter().append(result.toString());
+		} else {
+			resp.getWriter().println("文件不存在！");
+		}
 	}
 	
 	public List<String> readJson(String path){
@@ -36,7 +50,7 @@ public class ReadJson extends HttpServlet{
 		/**
 		 * DB操作结果
 		 */
-		List<String> result = new ArrayList<String>();
+		List<String> result = new LinkedList<String>();
 		/**
 		 * 从json文件中读取数据，生成list
 		 */
@@ -47,16 +61,19 @@ public class ReadJson extends HttpServlet{
 			switch ($.getOperate()) {
 			case "add":
 				Utils.getFileLogger().debug("insert customer data : {}", $.toString());
+				result.add($.getId());
 				result.add(addCutomer(custService, $));
 				Utils.getFileLogger().info("the result of insert customer data : {}",result.get(result.size()-1));
 			break;
 			case "del":
 				Utils.getFileLogger().debug("delete customer data : {}", $.toString());
+				result.add($.getId());
 				result.add(deleteCustomer(custService, $));
 				Utils.getFileLogger().info("the result of delete customer data : {}",result.get(result.size()-1));
 				break;
 			case "upd":
 				Utils.getFileLogger().debug("update customer data : {}", $.toString());
+				result.add($.getId());
 				result.add(updateCustomer(custService, $));
 				Utils.getFileLogger().info("the result of update customer data : {}",result.get(result.size()-1));
 				break;

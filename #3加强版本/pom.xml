@@ -5,7 +5,7 @@
   <groupId>co.nuoya.JsonDB</groupId>
   <artifactId>20180604-maven-readJson</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
 
   <name>20180604-maven-readJson</name>
   <url>http://maven.apache.org</url>
@@ -71,7 +71,12 @@
 	    <artifactId>log4j-slf4j-impl</artifactId>
 	    <version>2.11.1</version>
 	</dependency>
-  	
+  	<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
+	<dependency>
+	    <groupId>org.apache.tomcat</groupId>
+	    <artifactId>tomcat-catalina</artifactId>
+	    <version>8.0.21</version>
+	</dependency>
 
   </dependencies>
 
@@ -95,5 +100,31 @@
             <targetPath>.</targetPath>
         </resource>
     </resources>
+    <plugins>
+    	<plugin>
+    		<!-- 部署项目到tomcat 
+    			tomcat-users.xml
+	    		<role rolename="manager-script"/>
+				<user username="admin" password="572165" roles="manager-script"/>
+				setting.xml
+				<server>
+				    <id>tomcat8</id>
+				    <username>admin</username>
+				    <password>572165</password>
+				</server>
+    		-->
+    		<groupId>org.apache.tomcat.maven</groupId>
+    		<artifactId>tomcat7-maven-plugin</artifactId>
+    		<version>2.2</version>
+    		<configuration>
+    			<url>http://localhost:8080/manager/text</url>
+    			<server>tomcat8</server>
+    			<path>/20180604-maven-readJson</path>
+    			<username>admin</username>
+     			<password>572165</password>
+    			<update>true</update>
+    		</configuration>
+    	</plugin>
+    </plugins>
  </build>
 </project>

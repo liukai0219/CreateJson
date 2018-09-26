@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import co.nuoya.JsonDB.model.Customer;
 import co.nuoya.JsonDB.service.CustomerService;
@@ -25,7 +26,9 @@ public class ReadJson extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession();
 		String fileName = req.getParameter("filename");
+		session.setAttribute("fileName", fileName);
 		Utils.getFileLogger().info("文件名:{}",fileName);
 		String url = req.getServletContext().getRealPath("/WEB-INF/classes/resources/" + fileName);
 		File file = new File(url);
@@ -34,10 +37,15 @@ public class ReadJson extends HttpServlet{
 			Utils.getFileLogger().info("readJson getResource:{}",req.getServletContext().getResource("/WEB-INF/classes/resources/" + fileName).getPath());//OK
 			Utils.getFileLogger().info("readJson ReadJson.class.getClassLoader().getResource:{}",ReadJson.class.getClassLoader().getResource("/resources/" + fileName).getPath());//OK
 			
-			List<String> result = readJson(url);
-			resp.getWriter().append(result.toString());
+			List<String> readResult = readJson(url);
+			session.setAttribute("resultMsg", "执行成功！");
+			session.setAttribute("result", true);
+			session.setAttribute("readResult", readResult.toString());
+			resp.sendRedirect("./resultForRead.jsp");
+			
 		} else {
-			resp.getWriter().println("文件不存在！");
+			session.setAttribute("result", false);
+			session.setAttribute("resultMsg", "文件不存在！");
 		}
 	}
 	
@@ -61,19 +69,19 @@ public class ReadJson extends HttpServlet{
 			switch ($.getOperate()) {
 			case "add":
 				Utils.getFileLogger().debug("insert customer data : {}", $.toString());
-				result.add($.getId());
+				//result.add($.getId());
 				result.add(addCutomer(custService, $));
 				Utils.getFileLogger().info("the result of insert customer data : {}",result.get(result.size()-1));
 			break;
 			case "del":
 				Utils.getFileLogger().debug("delete customer data : {}", $.toString());
-				result.add($.getId());
+				//result.add($.getId());
 				result.add(deleteCustomer(custService, $));
 				Utils.getFileLogger().info("the result of delete customer data : {}",result.get(result.size()-1));
 				break;
 			case "upd":
 				Utils.getFileLogger().debug("update customer data : {}", $.toString());
-				result.add($.getId());
+				//result.add($.getId());
 				result.add(updateCustomer(custService, $));
 				Utils.getFileLogger().info("the result of update customer data : {}",result.get(result.size()-1));
 				break;

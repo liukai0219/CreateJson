@@ -38,9 +38,11 @@ public class WriteJson extends HttpServlet{
 		context.setAttribute("name", "Tom");
 		context.setAttribute("name", "ABC");
 		context.removeAttribute("name");
-		resp.getWriter().println(writeJson());
-		resp.getWriter().println("onLineCount:" + context.getAttribute("onLineCount"));
-		resp.getWriter().println("totalReqCount:" + context.getAttribute("totalReqCount"));
+		
+		session.setAttribute("result", writeJson());
+		session.setAttribute("onLineCount", context.getAttribute("onLineCount").toString());
+		session.setAttribute("totalReqCount", context.getAttribute("totalReqCount").toString());
+		resp.sendRedirect("./writeResult.jsp");
 	}
 	
 	public String writeJson() {

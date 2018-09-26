@@ -2,17 +2,15 @@ package co.nuoya.JsonDB.action;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
-import java.util.Enumeration;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.IOUtils;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import co.nuoya.JsonDB.util.Utils;
 
@@ -41,7 +39,7 @@ public class ServletTest extends HttpServlet {
 		 * 只能读取不能修改，读取可以使用request.getParameter()读取
 		 * 在服务器获取时都以String类型看待
 		 */
-		//Utils.getFileLogger().debug("返回指定的参数的值：{}",req.getParameter("testname"));
+		//Utils.getFileLogger().debug("返回指定的参数的值：{}",req.getParameter("reason"));
 		//用于能返回多个结果的组件，如checkbox
 		//Utils.getFileLogger().debug("返回指定参数的值数组：{}",Arrays.toString(req.getParameterValues("checks")));
 		Utils.getFileLogger().debug("返回这个请求所用的协议：{}",req.getProtocol());
@@ -53,15 +51,38 @@ public class ServletTest extends HttpServlet {
 		Utils.getFileLogger().debug("返回接收请求的服务器的主机名：{}",req.getServerName());
 		Utils.getFileLogger().debug("返回接收请求的端口号：{}",req.getServerPort());
 		Utils.getFileLogger().debug("返回发送请求URL：{}",req.getServletPath());
+		Utils.getFileLogger().debug("返回客户端浏览器的版本号、类型",req.getHeader("user-agent"));
 		
 		//String is = IOUtils.toString(req.getInputStream(),"gb2312");
 		//Utils.getFileLogger().debug(" 返回一个输入流用来从请求体读取二进制数据：{}",is);
 		
 		//getInputStream(),getReader(),getParameter()只能三选一
-		BufferedReader reader = req.getReader();
-		Utils.getFileLogger().debug(" getReader：{}",reader.readLine());
+		//BufferedReader reader = req.getReader();
+		//Utils.getFileLogger().debug(" getReader：{}",reader.readLine());
 		
-		resp.getWriter().append("hello world!");
+		
+		//getWriter和getOutputStream二选一，否则会抛出IllegalStateException。
+		//resp.getWriter().append("Hello World！");
+		//resp.getOutputStream().write("Hello Tom！".getBytes());
+		
+		HttpSession session = req.getSession();
+		String reason = req.getParameter("reason");
+		String[] checks = req.getParameterValues("checks");
+		
+		//redirect通过session把值传到jsp
+		session.setAttribute("checks", Arrays.toString(checks));
+		session.setAttribute("reason", reason);
+		resp.sendRedirect("./result.jsp");
+		
+		
+		//forward 
+		/*//1,通过session把值传到jsp
+		session.setAttribute("checks", Arrays.toString(checks));
+		session.setAttribute("reason", reason + "(from session)");
+		//2,通过req把值传到jsp
+		req.setAttribute("checks", Arrays.toString(checks));
+		req.setAttribute("reason", reason + "(from req)");
+		req.getRequestDispatcher("./result.jsp").forward(req, resp);*/
 	}
 	
 	@Override

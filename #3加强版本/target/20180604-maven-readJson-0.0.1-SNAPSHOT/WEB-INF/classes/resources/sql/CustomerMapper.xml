@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="co.nuoya.JsonDB.dao.Customer">
+	<!-- 嵌套结果 -->
+	<resultMap type="Customer" id="selectCustomerResultMap">
+		<id column="id" property="id" />
+		<result column="_index" property="index" jdbcType="INTEGER"/>
+		<result column="guid" property="guid"/>
+		<result column="active" property="active"/>
+		<result column="picture" property="picture"/>
+		<result column="age" property="age"/>
+		<result column="eyecolor" property="eyecolor"/>
+		<result column="lastName" property="lastName"/>
+		<result column="firstName" property="firstName"/>
+		<result column="company" property="company"/>
+		<result column="email" property="email"/>
+		<result column="phone" property="phone"/>
+		<result column="address" property="address"/>
+		<result column="about" property="about"/>
+		<result column="favoriteFruit" property="favoriteFruit"/>
+		<association property="acount" javaType="Acount">
+			<id column="acount_id" property="acount_id"/>
+			<result column="balance" property="balance"/>
+		</association>
+		<collection property="tags" ofType="Tags">
+			<id column="tid" property="id"/> <!-- 给id取别名解决一对多查询时只查出了一条数据 -->
+			<result column="customer_id" property="customer_id"/>
+			<result column="tag" property="tag"/>
+		</collection>
+	</resultMap>
+	
+	<!-- 当数据表的列名和bean中的字段名全一致时,只要指定resultType为相应的bean就行 -->
+	<!-- 当数据表的列名和bean中的字段名不全一致时,需要定义指定resultMap并把reresultMap属性的值设为resultMap的id -->
+	<select id="selectCustomer" resultMap="selectCustomerResultMap" parameterType="java.lang.String">
+		SELECT 
+			C.id, 
+			C._index,
+			C.guid, 
+			C.active, 
+			C.acount_id, 
+			C.picture, 
+			C.age, 
+			C.eyecolor, 
+			C.lastName, 
+			C.firstName, 
+			C.company, 
+			C.email, 
+			C.phone, 
+			C.address, 
+			C.about, 
+			C.favoriteFruit,
+			T.id AS tid,
+			T.customer_id,
+			T.tag,
+			A.acount_id,
+			A.balance
+		FROM Customer C
+		LEFT JOIN Acount A ON C.acount_id = A.acount_id
+		LEFT JOIN Tags T ON C.id = T.customer_id   
+		<!-- where 元素只在至少有一个子元素的条件返回 SQL 子句的情况下才去插入“WHERE”子句。 -->
+		<!-- 并且当开头为“AND”或“OR”，where 元素也会将它们去除。  -->
+		<!-- where可以用trim代替 -->
+		<where>
+			<!-- 在if标签对参数进行判断,可以使用_parameter,但仅限单个参数的情况 -->
+			<if test="_parameter != null"> 
+				C.id=#{id}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 嵌套查询 -->
+	<resultMap type="Customer" id="selectCustomerResultMap_Search">
+		<id column="id" property="id" />
+		<result column="_index" property="index" jdbcType="INTEGER"/>
+		<result column="guid" property="guid"/>
+		<result column="active" property="active"/>
+		<result column="picture" property="picture"/>
+		<result column="age" property="age"/>
+		<result column="eyecolor" property="eyecolor"/>
+		<result column="lastName" property="lastName"/>
+		<result column="firstName" property="firstName"/>
+		<result column="company" property="company"/>
+		<result column="email" property="email"/>
+		<result column="phone" property="phone"/>
+		<result column="address" property="address"/>
+		<result column="about" property="about"/>
+		<result column="favoriteFruit" property="favoriteFruit"/>
+		<association property="acount" column="acount_id" javaType="Acount" select="selectAcount"/>
+		<collection property="tags" column="id" ofType="Tags" select="selectTags"/>
+	</resultMap>
+	<select id="selectCustomer_Search" resultMap="selectCustomerResultMap_Search" parameterType="java.lang.String">
+		SELECT 
+			C.id, 
+			C._index,
+			C.guid, 
+			C.active, 
+			C.acount_id, 
+			C.picture, 
+			C.age, 
+			C.eyecolor, 
+			C.lastName, 
+			C.firstName, 
+			C.company, 
+			C.email, 
+			C.phone, 
+			C.address, 
+			C.about, 
+			C.favoriteFruit
+		FROM Customer C
+		<where>
+			<if test="_parameter != null"> 
+				C.id=#{id}
+			</if>
+		</where>
+	</select>
+	<select id="selectTags" resultType="Tags">
+		SELECT
+			T.id,
+			T.customer_id,
+			T.tag
+		FROM
+			Tags T
+		WHERE
+			T.customer_id = #{customer_id};
+	</select>
+	<select id="selectAcount" resultType="Acount">
+		SELECT
+			A.acount_id,
+			A.balance
+		FROM
+			Acount A
+		WHERE
+			A.acount_id = #{id};
+	</select>
+	
+	<!-- 利用map传入参数 -->
+	<select id="selectCustomerByAgeAndActive" resultMap="selectCustomerResultMap" parameterType="java.util.Map">
+		SELECT * FROM Customer 
+		<!-- 因为<是特殊字符，所以用 <![CDATA[....]]> 框起来，让解析器忽略-->
+		WHERE age <![CDATA[<]]> #{age}
+		<choose>
+			<when test="active != null">
+				AND active = #{active}
+			</when>
+			<otherwise>
+				AND acount_id is not null
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 利用map传入参数 -->
+	<select id="selectCustomerByAny" resultMap="selectCustomerResultMap" parameterType="java.util.Map">
+		SELECT * FROM Customer
+		<where>
+			<!-- _parameter.entrySet()或者map.entrySet()  index：key  item：value -->
+			<!-- _parameter.values()或者map.values()  index：0,1... item：value -->
+			<!-- _parameter.keySet()或者map.keySet()  index：0,1... item：key -->
+			<foreach collection="_parameter.entrySet()" index="index" item="item">
+				<if test="item != null">
+					${item} 
+				</if>
+			</foreach>
+		</where>
+	</select>
+	
+	<!-- 利用list传入参数 foreach循环 -->
+	<select id="selectCustomerByName" resultMap="selectCustomerResultMap" parameterType="java.util.List">
+		SELECT * FROM Customer
+		WHERE lastName IN 
+		<foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+			<if test="item != null" >
+				'${item}' 
+			</if>
+		</foreach>
+	</select>
+	
+	<!-- 利用array传入参数 foreach循环 -->
+	<select id="selectCustomerByName_Array" resultMap="selectCustomerResultMap">
+		SELECT * FROM Customer
+		WHERE lastName IN 
+		<foreach collection="array" index="index" item="item" open="(" close=")" separator=",">
+			<if test="item != null" >
+				<!-- #{item} '${item}' -->
+				#{item}
+			</if>
+		</foreach>
+	</select>
+	
+	<select id="selectCustomerByName_Like" resultMap="selectCustomerResultMap">
+		<!-- 通过bind元素创建一个变量 -->
+		<bind name="p" value="'%' + _parameter + '%'"/>
+		SELECT * FROM Customer
+		WHERE lastName LIKE #{p}
+	</select>
+	
+	<update id="updateCustomer" parameterType="Customer">
+		UPDATE Customer
+		<!-- set标签会动态前置 SET 关键字，同时也会删掉无关的逗号 -->
+		<set>
+			<if test="index != null">_index=#{index},</if>
+			<if test="guid != null">guid=#{guid},</if> 
+			<if test="active != null">active=#{active},</if> 
+			<if test="acount != null">acount_id=#{acount.acount_id},</if> 
+			<if test="picture != null">picture=#{picture},</if> 
+			<if test="age != null">age=#{age},</if> 
+			<if test="eyecolor != null">eyecolor=#{eyecolor},</if> 
+			<if test="lastName != null">lastName=#{lastName},</if> 
+			<if test="firstName != null">firstName=#{firstName},</if> 
+			<if test="company != null">company=#{company},</if> 
+			<if test="email != null">email=#{email},</if> 
+			<if test="phone != null">phone=#{phone},</if> 
+			<if test="address != null">address=#{address},</if> 
+			<if test="about != null">about=#{about},</if> 
+			<if test="favoriteFruit != null">favoriteFruit=#{favoriteFruit},</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="deleteCustomer" parameterType="java.lang.String">
+		DELETE FROM customer
+		<!-- 用trim代替where标签 ,Mybatis会移除prefixOverrides定义的内容(包括空格) -->
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<if test="_parameter != null">
+				id = #{0}
+			</if>
+		</trim>
+	</delete>
+	
+	<!-- 创建SQL代码片段 -->
+	<sql id="customer_field">
+		id, _index,guid, active, acount_id, picture, age, eyecolor, lastName, firstName, company, email, phone, address, about, favoriteFruit
+	</sql>
+	
+	<!-- parameterType是可选的,因为MyBatis可以通过 TypeHandler推断出 -->
+	<insert id="insertCustomer" parameterType="Customer">
+		INSERT INTO customer(
+		<!-- 引用SQL片段 -->
+		<include refid="customer_field"></include>
+		)
+		  values (
+		  	#{id}, 
+			#{index},
+			#{guid}, 
+			#{active}, 
+			#{acount.acount_id},
+			#{picture}, 
+			#{age}, 
+			#{eyecolor}, 
+			#{lastName}, 
+			#{firstName}, 
+			#{company}, 
+			#{email}, 
+			#{phone}, 
+			#{address}, 
+			#{about}, 
+			#{favoriteFruit}
+		)
+	</insert>
+	
+</mapper>
